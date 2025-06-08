@@ -39,15 +39,15 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
                 <div 
                   className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors duration-300 ${
                     isCompleted 
-                      ? 'bg-green-500 text-white' 
+                      ? 'bg-green-500 dark:bg-green-600 text-white' 
                       : isCurrent 
-                        ? 'bg-blue-500 text-white' 
-                        : 'bg-gray-200 text-gray-500'
+                        ? 'bg-blue-500 dark:bg-blue-600 text-white' 
+                        : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
                   }`}
                 >
                   {index + 1}
                 </div>
-                <span className="text-xs mt-1 text-center hidden sm:block">
+                <span className="text-xs mt-1 text-center hidden sm:block text-gray-600 dark:text-gray-400">
                   {step.progressBarLabel || step.id.replace(/([A-Z])/g, ' $1').trim()}
                 </span>
               </div>
@@ -56,7 +56,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
               {index < orderedSteps.length - 1 && (
                 <div 
                   className={`flex-1 h-0.5 mx-2 transition-colors duration-300 ${
-                    isCompleted ? 'bg-green-500' : 'bg-gray-200'
+                    isCompleted ? 'bg-green-500 dark:bg-green-600' : 'bg-gray-200 dark:bg-gray-700'
                   }`}
                 />
               )}

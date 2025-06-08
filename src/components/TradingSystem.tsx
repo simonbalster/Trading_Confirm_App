@@ -4,9 +4,14 @@ import ProgressBar from './ProgressBar';
 import steps from '../data/steps';
 import forexPairs from '../data/forexPairs';
 import { StepState, StepsState, ForexPair, TradeDirection } from '../types';
-import { BarChart2, TrendingUp, TrendingDown } from 'lucide-react';
+import { BarChart2, TrendingUp, TrendingDown, Sun, Moon } from 'lucide-react';
 
-const TradingSystem: React.FC = () => {
+interface TradingSystemProps {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+}
+
+const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMode }) => {
   const [currentStepId, setCurrentStepId] = React.useState<string | null>('forexPairSelection');
   const [selectedForexPair, setSelectedForexPair] = React.useState<ForexPair | null>(null);
   const [tradeDirection, setTradeDirection] = React.useState<TradeDirection>('buy');
@@ -116,21 +121,39 @@ const TradingSystem: React.FC = () => {
   return (
     <div className="max-w-3xl mx-auto p-4 sm:p-6">
       <div className="mb-8 text-center">
-        <div className="flex items-center justify-center mb-2">
-          <BarChart2 size={28} className="text-blue-600 mr-2" />
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">Forex Trading Validation System</h1>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex-1"></div>
+          <div className="flex items-center justify-center">
+            <BarChart2 size={28} className="text-blue-600 dark:text-blue-400 mr-2" />
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-gray-100">
+              Forex Trading Validation System
+            </h1>
+          </div>
+          <div className="flex-1 flex justify-end">
+            <button
+              onClick={toggleDarkMode}
+              className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200"
+              aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {isDarkMode ? (
+                <Sun size={20} className="text-yellow-500" />
+              ) : (
+                <Moon size={20} className="text-gray-600" />
+              )}
+            </button>
+          </div>
         </div>
-        <p className="text-gray-600">Validate your trading setup against proven rules</p>
+        <p className="text-gray-600 dark:text-gray-300">Validate your trading setup against proven rules</p>
         
         {/* Trade Direction Toggle */}
         <div className="mt-6 mb-4">
-          <div className="flex items-center justify-center space-x-1 bg-gray-100 rounded-lg p-1 max-w-xs mx-auto">
+          <div className="flex items-center justify-center space-x-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1 max-w-xs mx-auto">
             <button
               onClick={() => handleTradeDirectionChange('buy')}
               className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                 tradeDirection === 'buy'
                   ? 'bg-green-500 text-white shadow-md'
-                  : 'text-gray-600 hover:text-green-600'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400'
               }`}
             >
               <TrendingUp size={16} className="mr-1" />
@@ -141,7 +164,7 @@ const TradingSystem: React.FC = () => {
               className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                 tradeDirection === 'sell'
                   ? 'bg-red-500 text-white shadow-md'
-                  : 'text-gray-600 hover:text-red-600'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400'
               }`}
             >
               <TrendingDown size={16} className="mr-1" />
@@ -152,11 +175,11 @@ const TradingSystem: React.FC = () => {
         
         {/* Display selected forex pair */}
         {selectedForexPair && (
-          <div className="mt-4 inline-flex items-center px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg">
-            <TrendingUp size={20} className="text-blue-600 mr-2" />
+          <div className="mt-4 inline-flex items-center px-4 py-2 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 rounded-lg">
+            <TrendingUp size={20} className="text-blue-600 dark:text-blue-400 mr-2" />
             <div className="text-left">
-              <div className="text-lg font-bold text-blue-800">{selectedForexPair.symbol}</div>
-              <div className="text-xs text-blue-600 capitalize">{selectedForexPair.category} pair</div>
+              <div className="text-lg font-bold text-blue-800 dark:text-blue-200">{selectedForexPair.symbol}</div>
+              <div className="text-xs text-blue-600 dark:text-blue-400 capitalize">{selectedForexPair.category} pair</div>
             </div>
           </div>
         )}
@@ -182,15 +205,15 @@ const TradingSystem: React.FC = () => {
       )}
       
       {!currentStep && completedSteps.includes('h1Confirmation') && (
-        <div className="bg-green-50 border border-green-200 rounded-xl shadow-sm p-6 text-center animate-fadeIn">
-          <h2 className="text-xl font-bold text-green-800 mb-3">All Trading Rules Validated!</h2>
-          <p className="text-gray-700 mb-2">
+        <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-xl shadow-sm p-6 text-center animate-fadeIn">
+          <h2 className="text-xl font-bold text-green-800 dark:text-green-200 mb-3">All Trading Rules Validated!</h2>
+          <p className="text-gray-700 dark:text-gray-300 mb-2">
             All timeframe validation steps have been completed successfully for <strong>{selectedForexPair?.symbol}</strong> {tradeDirection} setup.
           </p>
-          <p className="text-green-700 font-medium mb-4">{getFinalValidationMessage()}</p>
+          <p className="text-green-700 dark:text-green-300 font-medium mb-4">{getFinalValidationMessage()}</p>
           <button
             onClick={handleReset}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+            className="px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-200"
           >
             Start New Validation
           </button>

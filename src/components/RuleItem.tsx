@@ -23,20 +23,20 @@ const RuleItem: React.FC<RuleItemProps> = ({
   const getButtonStyle = (status: RuleStatus) => {
     if (singleSelection) {
       if (isSelected && status === 'satisfied') {
-        return 'bg-green-100 text-green-600 hover:bg-green-200 border-2 border-green-400';
+        return 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 hover:bg-green-200 dark:hover:bg-green-900/50 border-2 border-green-400 dark:border-green-500';
       } else if (isSelected) {
-        return 'bg-blue-100 text-blue-600 hover:bg-blue-200 border-2 border-blue-400';
+        return 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/50 border-2 border-blue-400 dark:border-blue-500';
       } else {
-        return 'bg-gray-100 text-gray-400 hover:bg-gray-200 border-2 border-transparent';
+        return 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-600 border-2 border-transparent';
       }
     } else {
       switch (status) {
         case 'satisfied':
-          return 'bg-green-100 text-green-600 hover:bg-green-200';
+          return 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 hover:bg-green-200 dark:hover:bg-green-900/50';
         case 'na':
-          return 'bg-blue-100 text-blue-600 hover:bg-blue-200';
+          return 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/50';
         default:
-          return 'bg-gray-100 text-gray-400 hover:bg-gray-200';
+          return 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-600';
       }
     }
   };
@@ -79,9 +79,9 @@ const RuleItem: React.FC<RuleItemProps> = ({
   };
 
   return (
-    <div className={`flex flex-col mb-3 border rounded-lg p-3 bg-white shadow-sm transition-all duration-200 hover:shadow-md ${
-      singleSelection && isSelected ? 'border-blue-300 bg-blue-50' : 
-      ruleStatus === 'na' ? 'border-blue-300 bg-blue-50' : 'border-gray-200'
+    <div className={`flex flex-col mb-3 border rounded-lg p-3 bg-white dark:bg-gray-800 shadow-sm transition-all duration-200 hover:shadow-md ${
+      singleSelection && isSelected ? 'border-blue-300 dark:border-blue-600 bg-blue-50 dark:bg-blue-900/20' : 
+      ruleStatus === 'na' ? 'border-blue-300 dark:border-blue-600 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-200 dark:border-gray-700'
     }`}>
       <div className="flex items-start justify-between">
         <div className="flex items-start flex-1">
@@ -105,8 +105,8 @@ const RuleItem: React.FC<RuleItemProps> = ({
               <button
                 className={`ml-2 px-2 py-1 text-xs rounded-md transition-all duration-200 ${
                   ruleStatus === 'na' 
-                    ? 'bg-blue-500 text-white hover:bg-blue-600' 
-                    : 'bg-gray-200 text-gray-600 hover:bg-blue-100 hover:text-blue-600'
+                    ? 'bg-blue-500 dark:bg-blue-600 text-white hover:bg-blue-600 dark:hover:bg-blue-700' 
+                    : 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400'
                 }`}
                 onClick={handleNAToggle}
                 aria-label={ruleStatus === 'na' ? "Remove N/A status" : "Mark as Not Applicable"}
@@ -118,8 +118,8 @@ const RuleItem: React.FC<RuleItemProps> = ({
           
           <div className="flex-1">
             <p className={`font-medium ${
-              singleSelection && isSelected ? 'text-blue-800' : 
-              ruleStatus === 'na' ? 'text-blue-700' : 'text-gray-800'
+              singleSelection && isSelected ? 'text-blue-800 dark:text-blue-200' : 
+              ruleStatus === 'na' ? 'text-blue-700 dark:text-blue-300' : 'text-gray-800 dark:text-gray-200'
             }`}>
               {rule.description}
             </p>
@@ -128,7 +128,7 @@ const RuleItem: React.FC<RuleItemProps> = ({
               {rule.exceptions && rule.exceptions.length > 0 && (
                 <button
                   onClick={() => setShowException(!showException)}
-                  className="text-blue-600 text-xs flex items-center hover:text-blue-800 transition-colors"
+                  className="text-blue-600 dark:text-blue-400 text-xs flex items-center hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
                 >
                   <HelpCircle size={12} className="mr-1" />
                   {showException ? 'Hide exception' : 'Show exception'}
@@ -138,7 +138,7 @@ const RuleItem: React.FC<RuleItemProps> = ({
               {rule.images && rule.images.length > 0 && (
                 <button
                   onClick={() => setShowImages(!showImages)}
-                  className="text-purple-600 text-xs flex items-center hover:text-purple-800 transition-colors"
+                  className="text-purple-600 dark:text-purple-400 text-xs flex items-center hover:text-purple-800 dark:hover:text-purple-300 transition-colors"
                 >
                   <ImageIcon size={12} className="mr-1" />
                   {showImages ? 'Hide examples' : `Show examples (${rule.images.length})`}
@@ -147,10 +147,10 @@ const RuleItem: React.FC<RuleItemProps> = ({
             </div>
 
             {showException && rule.exceptions && (
-              <div className="mt-2 pl-4 border-l-2 border-blue-200 text-xs text-gray-600">
+              <div className="mt-2 pl-4 border-l-2 border-blue-200 dark:border-blue-600 text-xs text-gray-600 dark:text-gray-400">
                 {rule.exceptions.map((exception, index) => (
                   <p key={index} className={`mb-1 ${
-                    exception === 'NO EXCEPTION' ? 'font-bold text-red-600' : ''
+                    exception === 'NO EXCEPTION' ? 'font-bold text-red-600 dark:text-red-400' : ''
                   }`}>
                     Exception: {exception}
                   </p>
@@ -161,22 +161,22 @@ const RuleItem: React.FC<RuleItemProps> = ({
             {showImages && rule.images && rule.images.length > 0 && (
               <div className="mt-3 space-y-3">
                 {rule.images.map((image, index) => (
-                  <div key={index} className="border border-gray-200 rounded-lg overflow-hidden">
+                  <div key={index} className="border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden">
                     <img 
                       src={image.url} 
                       alt={image.alt || `Example ${index + 1} for ${rule.description}`}
-                      className="w-full h-auto max-h-64 object-contain bg-gray-50"
+                      className="w-full h-auto max-h-64 object-contain bg-gray-50 dark:bg-gray-700"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.style.display = 'none';
                         const errorDiv = document.createElement('div');
-                        errorDiv.className = 'p-4 text-center text-gray-500 text-sm';
+                        errorDiv.className = 'p-4 text-center text-gray-500 dark:text-gray-400 text-sm';
                         errorDiv.textContent = 'Image not available';
                         target.parentNode?.appendChild(errorDiv);
                       }}
                     />
                     {image.alt && (
-                      <div className="p-2 bg-gray-50 text-xs text-gray-600 border-t">
+                      <div className="p-2 bg-gray-50 dark:bg-gray-700 text-xs text-gray-600 dark:text-gray-400 border-t border-gray-200 dark:border-gray-600">
                         {image.alt}
                       </div>
                     )}

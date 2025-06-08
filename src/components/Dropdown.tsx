@@ -45,32 +45,32 @@ const Dropdown: React.FC<DropdownProps> = ({
   return (
     <div className="relative w-full" ref={dropdownRef}>
       <button
-        className="flex items-center justify-between w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm hover:border-blue-500 transition-colors duration-200"
+        className="flex items-center justify-between w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm hover:border-blue-500 dark:hover:border-blue-400 transition-colors duration-200"
         onClick={toggleDropdown}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
       >
-        <span className={`text-sm ${selectedOption ? 'text-gray-800 font-medium' : 'text-gray-500'}`}>
+        <span className={`text-sm ${selectedOption ? 'text-gray-800 dark:text-gray-200 font-medium' : 'text-gray-500 dark:text-gray-400'}`}>
           {selectedLabel}
         </span>
         <ChevronDown 
           size={18} 
-          className={`text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
+          className={`text-gray-500 dark:text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
         />
       </button>
       
       {isOpen && (
         <div 
-          className="absolute z-10 w-full mt-1 bg-white rounded-lg border border-gray-200 shadow-lg max-h-60 overflow-auto"
+          className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 shadow-lg max-h-60 overflow-auto"
           role="listbox"
         >
           {options.map((option) => (
             <button
               key={option.id}
-              className={`w-full text-left px-4 py-2.5 text-sm hover:bg-blue-50 transition-colors ${
+              className={`w-full text-left px-4 py-2.5 text-sm hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors ${
                 selectedOption === option.id 
-                  ? 'bg-blue-100 text-blue-800 font-medium' 
-                  : 'text-gray-700'
+                  ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 font-medium' 
+                  : 'text-gray-700 dark:text-gray-300'
               }`}
               onClick={() => handleSelect(option.id)}
               role="option"

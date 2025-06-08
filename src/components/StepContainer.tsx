@@ -164,21 +164,21 @@ const StepContainer: React.FC<StepContainerProps> = ({
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5 mb-5 animate-fadeIn">
+    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-5 mb-5 animate-fadeIn transition-colors duration-300">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold text-gray-800">{step.title}</h2>
+        <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">{step.title}</h2>
         <button
           onClick={onReset}
-          className="flex items-center px-3 py-2 text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+          className="flex items-center px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
         >
           <RotateCcw size={16} className="mr-1" />
           Reset
         </button>
       </div>
-      <p className="text-gray-600 mb-4">{step.description}</p>
+      <p className="text-gray-600 dark:text-gray-300 mb-4">{step.description}</p>
       
       <div className="mb-6">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           {isForexPairSelection ? 'Select Instrument' : 'Select Option'}
         </label>
         <Dropdown
@@ -191,11 +191,11 @@ const StepContainer: React.FC<StepContainerProps> = ({
 
       {stepState.selectedOption && !isForexPairSelection && (
         <div className="mb-6">
-          <h3 className="text-sm font-medium text-gray-700 mb-2">
+          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
             {isSingleSelectionStep ? 'Select the ONE rule that applies:' : 'Validation Rules'}
           </h3>
           {isSingleSelectionStep && (
-            <p className="text-xs text-blue-600 mb-3 bg-blue-50 p-2 rounded-lg border border-blue-200">
+            <p className="text-xs text-blue-600 dark:text-blue-400 mb-3 bg-blue-50 dark:bg-blue-900/20 p-2 rounded-lg border border-blue-200 dark:border-blue-700">
               <strong>Important:</strong> You only need one of below rules to meet the requirements. 
               Multiple selections are not permitted.
             </p>
@@ -218,34 +218,34 @@ const StepContainer: React.FC<StepContainerProps> = ({
       {stepState.validationResult && (
         <div className={`mb-4 p-4 rounded-xl border-2 transition-all duration-300 ${
           stepState.validationResult.valid 
-            ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-green-300 shadow-lg animate-celebration' 
-            : 'bg-red-50 border-red-200'
+            ? 'bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-300 dark:border-green-600 shadow-lg animate-celebration' 
+            : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-600'
         }`}>
           {stepState.validationResult.valid ? (
             <div className="flex items-center justify-center">
               <div className="flex items-center space-x-3">
                 <div className="relative">
-                  <CheckCircle size={28} className="text-green-600" />
+                  <CheckCircle size={28} className="text-green-600 dark:text-green-400" />
                   <Sparkles size={16} className="absolute -top-1 -right-1 text-yellow-500 animate-pulse" />
                 </div>
                 <div className="text-center">
-                  <h3 className="text-xl font-bold text-green-800 mb-1">
+                  <h3 className="text-xl font-bold text-green-800 dark:text-green-200 mb-1">
                     🎉 Validation Successful!
                   </h3>
-                  <p className="text-green-700 font-medium">
+                  <p className="text-green-700 dark:text-green-300 font-medium">
                     {stepState.validationResult.message}
                   </p>
                 </div>
                 <div className="relative">
-                  <CheckCircle size={28} className="text-green-600" />
+                  <CheckCircle size={28} className="text-green-600 dark:text-green-400" />
                   <Sparkles size={16} className="absolute -top-1 -right-1 text-yellow-500 animate-pulse" />
                 </div>
               </div>
             </div>
           ) : (
             <div className="flex items-center">
-              <AlertCircle size={18} className="mr-2 text-red-600" />
-              <p className="text-sm text-red-800">{stepState.validationResult.message}</p>
+              <AlertCircle size={18} className="mr-2 text-red-600 dark:text-red-400" />
+              <p className="text-sm text-red-800 dark:text-red-300">{stepState.validationResult.message}</p>
             </div>
           )}
         </div>
@@ -253,7 +253,7 @@ const StepContainer: React.FC<StepContainerProps> = ({
 
       <div className="flex justify-end">
         <button
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center"
+          className="px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-200 flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={handleValidate}
           disabled={!stepState.selectedOption}
         >
