@@ -53,10 +53,10 @@ const unsortedForexPairs: ForexPair[] = [
   { id: 'XAGAUD', label: 'XAG/AUD - SILVER vs Australian Dollar', symbol: 'XAG/AUD', category: 'metals' },
 
   // Indices
-  { id: 'UK100', label: 'FTSE 100', symbol: 'UK100', category: 'indices' },
-  { id: 'US30', label: 'DOW 30', symbol: 'US30', category: 'indices' },
-  { id: 'US500', label: 'S&P 500', symbol: 'US500', category: 'indices' },
-  { id: 'USTEC', label: 'NASDAQ 100', symbol: 'USTEC', category: 'indices' }
+  { id: 'UK100', label: 'UK100 - FTSE 100', symbol: 'UK100', category: 'indices' },
+  { id: 'US30', label: 'US30 - DOW 30', symbol: 'US30', category: 'indices' },
+  { id: 'US500', label: 'US500 - S&P 500', symbol: 'US500', category: 'indices' },
+  { id: 'USTEC', label: 'USTEC - NASDAQ 100', symbol: 'USTEC', category: 'indices' }
 ];
 
 // Sort forex pairs alphabetically by ID
