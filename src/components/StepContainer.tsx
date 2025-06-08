@@ -1,5 +1,5 @@
 import React from 'react';
-import { Step, StepState, ValidationResult, RuleStatus } from '../types';
+import { Step, StepState, ValidationResult, RuleStatus, TradeDirection } from '../types';
 import Dropdown from './Dropdown';
 import RuleItem from './RuleItem';
 import { validateRules } from '../utils/validation';
@@ -12,6 +12,7 @@ interface StepContainerProps {
   onNext: (nextStepId: string | undefined) => void;
   onReset: () => void;
   prevStepSelectedOption?: string | null;
+  tradeDirection: TradeDirection;
 }
 
 const StepContainer: React.FC<StepContainerProps> = ({
@@ -21,24 +22,25 @@ const StepContainer: React.FC<StepContainerProps> = ({
   onNext,
   onReset,
   prevStepSelectedOption = null,
+  tradeDirection,
 }) => {
   const [ruleAnswers, setRuleAnswers] = React.useState<Record<string, RuleStatus>>({});
   const [selectedRuleId, setSelectedRuleId] = React.useState<string | null>(null);
   
   const currentRules = React.useMemo(() => {
     if (step.getRules && stepState.selectedOption) {
-      return step.getRules(stepState.selectedOption);
+      return step.getRules(stepState.selectedOption, tradeDirection);
     }
     return step.rules;
-  }, [step, stepState.selectedOption]);
+  }, [step, stepState.selectedOption, tradeDirection]);
 
   // Get dynamic options if available, otherwise use static options
   const availableOptions = React.useMemo(() => {
     if (step.getOptions) {
-      return step.getOptions(prevStepSelectedOption);
+      return step.getOptions(prevStepSelectedOption, tradeDirection);
     }
     return step.options;
-  }, [step, prevStepSelectedOption]);
+  }, [step, prevStepSelectedOption, tradeDirection]);
 
   // Only NonMANIPIB and NonMANIPNONMSBENGULF are single selection steps
   const isSingleSelectionStep = stepState.selectedOption === 'NonMANIPIB' || stepState.selectedOption === 'NonMANIPNONMSBENGULF';
@@ -104,7 +106,7 @@ const StepContainer: React.FC<StepContainerProps> = ({
       if (stepState.selectedOption) {
         validationResult = {
           valid: true,
-          message: `Instrument selected successfully! Proceeding to H4 validation...`
+          message: `Instrument selected successfully! Proceeding to H4 validation for ${tradeDirection} setup...`
         };
       } else {
         validationResult = {
@@ -124,7 +126,7 @@ const StepContainer: React.FC<StepContainerProps> = ({
       } else if (selectedRules.length === 1) {
         validationResult = {
           valid: true,
-          message: `${step.title} valid - Rule validated successfully! ${step.nextStep ? 'Proceeding to next step...' : 'Trading plan validation complete!'}`
+          message: `${step.title} valid - Rule validated successfully for ${tradeDirection} setup! ${step.nextStep ? 'Proceeding to next step...' : 'Trading plan validation complete!'}`
         };
       } else {
         validationResult = {

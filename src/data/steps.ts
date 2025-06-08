@@ -1,4 +1,4 @@
-import { Step } from '../types';
+import { Step, TradeDirection } from '../types';
 import forexPairs from './forexPairs';
 
 const steps: Record<string, Step> = {
@@ -19,7 +19,7 @@ const steps: Record<string, Step> = {
       }
     ],
     nextStep: 'h4Initial',
-    getRules: () => [
+    getRules: (selectedOption: string, tradeDirection?: TradeDirection) => [
       {
         id: 'pairSelected',
         description: 'Select a forex trading pair to continue with validation',
@@ -44,7 +44,9 @@ const steps: Record<string, Step> = {
     ],
     rules: [],
     nextStep: 'dailyRules',
-    getRules: (selectedOption: string) => {
+    getRules: (selectedOption: string, tradeDirection: TradeDirection = 'buy') => {
+      // For now, return the same rules regardless of trade direction
+      // You can customize these based on tradeDirection in the future
       switch (selectedOption) {
         case 'MANIPIB':
           return [
@@ -554,7 +556,7 @@ const steps: Record<string, Step> = {
     options: [],
     rules: [],
     nextStep: 'h1Confirmation',
-    getOptions: (prevStepSelectedOption: string | null) => {
+    getOptions: (prevStepSelectedOption: string | null, tradeDirection: TradeDirection = 'buy') => {
       // If H4 Initial selection is ENGULFMSB or SCMSBA, only show Previous Same option
       if (prevStepSelectedOption === 'ENGULFMSB' || prevStepSelectedOption === 'SCMSBA') {
         return [
@@ -568,7 +570,7 @@ const steps: Record<string, Step> = {
         { id: 'PrevOpp', label: 'Previous Day Opposite direction rules' }
       ];
     },
-    getRules: (selectedOption: string) => {
+    getRules: (selectedOption: string, tradeDirection: TradeDirection = 'buy') => {
       switch (selectedOption) {
         case 'PrevSame':
           return [
@@ -733,7 +735,7 @@ const steps: Record<string, Step> = {
     ],
     rules: [],
     nextStep: undefined,
-    getRules: (selectedOption: string) => {
+    getRules: (selectedOption: string, tradeDirection: TradeDirection = 'buy') => {
       switch (selectedOption) {
         case 'H1MANIPIB':
           return [

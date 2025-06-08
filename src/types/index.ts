@@ -5,6 +5,8 @@ export interface ImageInfo {
 
 export type RuleStatus = 'satisfied' | 'not_satisfied' | 'na';
 
+export type TradeDirection = 'buy' | 'sell';
+
 export interface Rule {
   id: string;
   description: string;
@@ -33,8 +35,8 @@ export interface Step {
   rules: Rule[];
   nextStep?: string;
   progressBarLabel?: string;
-  getRules?: (selectedOption: string) => Rule[];
-  getOptions?: (prevStepSelectedOption: string | null) => Option[];
+  getRules?: (selectedOption: string, tradeDirection?: TradeDirection) => Rule[];
+  getOptions?: (prevStepSelectedOption: string | null, tradeDirection?: TradeDirection) => Option[];
 }
 
 export interface ValidationResult {
