@@ -753,7 +753,7 @@ const steps: Record<string, Step> = {
             },
             {
               id: 'rule3',
-              description: 'Closing into Empty Space or Non MSB structure',
+              description: 'H1 NH/NL closed into Empty Space or Non MSB structure',
               exceptions: ['NO EXCEPTION'],
               images: []
             },
@@ -799,7 +799,7 @@ H1 NON MSB Engulf structure (any)`,
             },
             {
               id: 'rule3',
-              description: 'Closed into either Empty Space or Non MSB structure',
+              description: 'H1 NH/NL closed into either Empty Space or Non MSB structure',
               exceptions: ['NO EXCEPTION'],
               images: []
             },
