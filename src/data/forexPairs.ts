@@ -23,6 +23,7 @@ const unsortedForexPairs: ForexPair[] = [
   { id: 'GBPCHF', label: 'GBP/CHF - British Pound vs Swiss Franc', symbol: 'GBP/CHF', category: 'minor' },
   { id: 'EURAUD', label: 'EUR/AUD - Euro vs Australian Dollar', symbol: 'EUR/AUD', category: 'minor' },
   { id: 'GBPAUD', label: 'GBP/AUD - British Pound vs Australian Dollar', symbol: 'GBP/AUD', category: 'minor' },
+  { id: 'GBPNZD', label: 'GBP/NZD - British Pound vs New Zealand Dollar', symbol: 'GBP/NZD', category: 'minor' },
   { id: 'EURCAD', label: 'EUR/CAD - Euro vs Canadian Dollar', symbol: 'EUR/CAD', category: 'minor' },
   { id: 'GBPCAD', label: 'GBP/CAD - British Pound vs Canadian Dollar', symbol: 'GBP/CAD', category: 'minor' },
   { id: 'AUDCAD', label: 'AUD/CAD - Australian Dollar vs Canadian Dollar', symbol: 'AUD/CAD', category: 'minor' },
