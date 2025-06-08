@@ -2,7 +2,7 @@ export interface ForexPair {
   id: string;
   label: string;
   symbol: string;
-  category: 'major' | 'minor' | 'exotic' | 'metals' | 'indices';
+  category: 'major' | 'minor' | 'exotic' | 'metals' | 'indices' | 'crypto';
 }
 
 const unsortedForexPairs: ForexPair[] = [
@@ -57,7 +57,11 @@ const unsortedForexPairs: ForexPair[] = [
   { id: 'UK100', label: 'UK100 - FTSE 100', symbol: 'UK100', category: 'indices' },
   { id: 'US30', label: 'US30 - DOW 30', symbol: 'US30', category: 'indices' },
   { id: 'US500', label: 'US500 - S&P 500', symbol: 'US500', category: 'indices' },
-  { id: 'USTEC', label: 'USTEC - NASDAQ 100', symbol: 'USTEC', category: 'indices' }
+  { id: 'USTEC', label: 'USTEC - NASDAQ 100', symbol: 'USTEC', category: 'indices' },
+  
+  // Crypto
+  { id: 'BTCUSD', label: 'BTCUSD - Bitcoin vs US Dollar', symbol: 'BTCUSD', category: 'crypto' },
+  { id: 'XRPUSD', label: 'XRPUSD - Ripple vs US Dollar', symbol: 'XRPUSD', category: 'crypto' }
 ];
 
 // Sort forex pairs alphabetically by ID
