@@ -1,7 +1,7 @@
 import { Step, TradeDirection } from '../types';
 import forexPairs from './forexPairs';
 
-const steps: Record<string, Step> = {
+export const steps: Record<string, Step> = {
   forexPairSelection: {
     id: 'forexPairSelection',
     title: 'Trade Direction',
@@ -1076,5 +1076,3 @@ Non MSB structure`,
     }
   }
 };
-
-export default steps;
