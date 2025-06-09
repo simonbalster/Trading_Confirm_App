@@ -777,9 +777,9 @@ export const steps: Record<string, Step> = {
             {
               id: 'rule5',
               description: `Closing/Tapping into:
-H1 Empty Space or 
-H1 NON MSB IB structure (any) or 
-H1 NON MSB Engulf structure (any)`,
+• H1 Empty Space or 
+• H1 NON MSB IB structure (any) or 
+• H1 NON MSB Engulf structure (any)`,
               exceptions: ['NO EXCEPTION'],
               images: []
             }
@@ -823,9 +823,9 @@ H1 NON MSB Engulf structure (any)`,
             {
               id: 'rule5',
               description: `Confirm candle closing/tapping into:
-H1 Empty Space or
-H1 NON MSB IB structure (any) or
-H1 NON MSB Engulf structure (any)`,
+• H1 Empty Space or
+• H1 NON MSB IB structure (any) or
+• H1 NON MSB Engulf structure (any)`,
               exceptions: ['NO EXCEPTION'],
               images: []
             }
@@ -859,8 +859,8 @@ H1 NON MSB Engulf structure (any)`,
              {
               id: 'rule5',
               description: `Your H1 NH/NL level MUST tap/close into either:
-Empty Space
-Non MSB structure`,
+• Empty Space
+• Non MSB structure`,
               exceptions: ['NO EXCEPTION'],
               images: []
             },
@@ -882,9 +882,9 @@ Non MSB structure`,
             {
               id: 'rule7',
               description: `Confirm candle closing/Tapping into:
-H1 Empty Space or 
-H1 NON MSB IB structure (any) or
-H1 NON MSB Engulf structure (any)`,
+• H1 Empty Space or 
+• H1 NON MSB IB structure (any) or
+• H1 NON MSB Engulf structure (any)`,
               exceptions: ['NO EXCEPTION'],
               images: []
             }
@@ -919,8 +919,8 @@ H1 NON MSB Engulf structure (any)`,
              {
               id: 'rule5',
               description: `H1 NH/NL level MUST tap/close into either:
-Empty Space
-Non MSB structure`,
+• Empty Space
+• Non MSB structure`,
               exceptions: ['NO EXCEPTION'],
               images: []
             },
@@ -942,9 +942,9 @@ Non MSB structure`,
             {
               id: 'rule7',
               description: `Confirm candle Closing/Tapping into:
-H1 Empty Space
-H1 NON MSB inside bar structure (any)
-H1 NON MSB Engulf structure (any)`,
+• H1 Empty Space
+• H1 NON MSB inside bar structure (any)
+• H1 NON MSB Engulf structure (any)`,
               exceptions: ['NO EXCEPTION'],
               images: []
             }
@@ -977,8 +977,8 @@ H1 NON MSB Engulf structure (any)`,
             {
               id: 'rule4',
               description: `H1 NH/NL level MUST tap/close into either:
-Empty Space
-Non MSB structure`,
+• Empty Space
+• Non MSB structure`,
               exceptions: ['NO EXCEPTION'],
               images: []
             },
@@ -1019,14 +1019,14 @@ Non MSB structure`,
             {
               id: 'rule3',
               description: `Any type of Candle before your LQW (structure candle H or L) has made HL or LH.
-              Your LQW manips that structure wick. 
-              The structure candle can be non manip AND doesnt need to be supported by anything.`,
+Your LQW manips that structure wick. 
+The structure candle can be non manip AND doesnt need to be supported by anything.`,
               images: []
             },
            {
               id: 'rule4',
               description: `Candle directly before LQW is Engulf MSB/SCMSB?
-              Your Engulf MSB/SCMSB directly before LQW is HL/LH`,
+Your Engulf MSB/SCMSB directly before LQW is HL/LH`,
               exceptions: ['NO EXCEPTION'],
               allowNA: true,
               images: []
@@ -1034,8 +1034,8 @@ Non MSB structure`,
             {
               id: 'rule5',
               description: `If structure candle before LQW is Engulf MSB/SCMSB it must close over most recent structure wicks 
-              or LQW must close over the structure wicks
-              or LQW closes over the most recent structure wick the Engulf MSB/SCMSB failed to close over`,
+or LQW must close over the structure wicks
+or LQW closes over the most recent structure wick the Engulf MSB/SCMSB failed to close over`,
               exceptions: ['NO EXCEPTION'],
               allowNA: true,
               images: [
@@ -1048,7 +1048,7 @@ Non MSB structure`,
             {
               id: 'rule6',
               description: `If structure candle before LQW is IB/NON MSB Engulf and made HL/LH:
-              LQW doesnt need to come off/tap the H1 NH/NL level, it just has to be a HL/LH high after it.`,
+LQW doesnt need to come off/tap the H1 NH/NL level, it just has to be a HL/LH high after it.`,
               allowNA: true,
               images: []
             },
