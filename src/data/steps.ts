@@ -820,7 +820,7 @@ H1 NON MSB Engulf structure (any)`,
             },
             {
               id: 'rule5',
-              description: `Closing/Tapping into:
+              description: `Confirm candle closing/Tapping into:
 H1 Empty Space
 H1 NON MSB inside bar structure (any)
 H1 NON MSB Engulf structure (any)`,
@@ -879,7 +879,7 @@ Non MSB structure`,
             },
             {
               id: 'rule7',
-              description: `Closing/Tapping into:
+              description: `Confirm candle closing/Tapping into:
 H1 Empty Space
 H1 NON MSB inside bar structure (any)
 H1 NON MSB Engulf structure (any)`,
@@ -1016,7 +1016,7 @@ Non MSB structure`,
             },
             {
               id: 'rule3',
-              description: `Any type of Candle before your LQW (structure candle) has made HL or LH.
+              description: `Any type of Candle before your LQW (structure candle H or L) has made HL or LH.
               Your LQW manips that structure wick. 
               The structure candle can be non manip AND doesnt need to be supported by anything.`,
               images: []
@@ -1024,7 +1024,7 @@ Non MSB structure`,
            {
               id: 'rule4',
               description: `Candle directly before LQW is Engulf MSB/SCMSB?
-              Your Engulf MSB/SCMSB directly before LQW will ALWAYS be a HL/LH`,
+              Your Engulf MSB/SCMSB directly before LQW is HL/LH`,
               exceptions: ['NO EXCEPTION'],
               allowNA: true,
               images: []
@@ -1033,7 +1033,7 @@ Non MSB structure`,
               id: 'rule5',
               description: `If structure candle before LQW is Engulf MSB/SCMSB it must close over most recent structure wicks 
               or LQW must close over the structure wicks
-              orr LQW closes over the most recent structure wick the Engulf MSB/SCMSB failed to close over`,
+              or LQW closes over the most recent structure wick the Engulf MSB/SCMSB failed to close over`,
               exceptions: ['NO EXCEPTION'],
               allowNA: true,
               images: [
@@ -1046,7 +1046,7 @@ Non MSB structure`,
             {
               id: 'rule6',
               description: `If structure candle before LQW is IB/NON MSB Engulf and made HL/LH:
-              LQW doesnt need to COME OFF/TAP the H1 NH/NL level either…it just has to be a HL/LH high after it.`,
+              LQW doesnt need to come off/tap the H1 NH/NL level, it just has to be a HL/LH high after it.`,
               allowNA: true,
               images: []
             },
@@ -1059,7 +1059,7 @@ Non MSB structure`,
             },
             {
               id: 'rule8',
-              description: 'The H1 NH/NL level directly before your LQW MUST close over its most recent structure wick OR at least be the exact same price as most recent structure wick.',
+              description: 'The H1 NH/NL level before your LQW MUST close over its most recent structure wick OR at least be the exact same price as most recent structure wick.',
               images: []
             },
             {
