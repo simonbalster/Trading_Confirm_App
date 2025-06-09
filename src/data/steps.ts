@@ -645,7 +645,7 @@ const steps: Record<string, Step> = {
           return [
             {
               id: 'rule1',
-              description: 'Your H4 opposite direction candle must close inside the close wick of the daily opposite direction.',
+              description: 'Your H4 candle must close inside the close wick of the daily opposite direction.',
               images: [
                 {
                   url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1749235130/Picture54_uw882q.png',
@@ -655,7 +655,7 @@ const steps: Record<string, Step> = {
             },
             {
               id: 'rule2',
-              description: 'If your H4 candle closed over previous days OPPOSITE day open wick, the open wick of your H4 same direction MUST also be within the range of the previous opposite direction DAY.',
+              description: 'If your H4 candle closed over previous days OPPOSITE day open wick, the open wick of your H4 opposite candle MUST also be within the range of the previous opposite direction candle.',
               allowNA: true,
               images: [
                 {
