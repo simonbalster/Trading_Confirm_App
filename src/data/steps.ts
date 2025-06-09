@@ -1041,8 +1041,8 @@ Your Engulf MSB/SCMSB directly before LQW is HL/LH`,
               allowNA: true,
               images: [
                 {
-                  url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1749242049/Picture65_z7mdv9.jpg',
-                  alt: 'Example of H1 Manip SCMSB setup'
+                  url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1749472813/Picture69_jsxhjf.jpg',
+                  alt: 'Example of Engulf closing over most recent structure wicks'
                 }
               ]
             },
