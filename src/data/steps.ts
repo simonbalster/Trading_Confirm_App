@@ -597,7 +597,7 @@ const steps: Record<string, Step> = {
             },
             {
               id: 'rule3',
-              description: 'Previous day same direction cant tap into SCMSB after NH/NL against you',
+              description: 'Previous day cant tap into SCMSB that made NH/NL against you',
               exceptions: ['NO EXCEPTION'],
               images: [
                 {
@@ -608,7 +608,7 @@ const steps: Record<string, Step> = {
             },
             {
               id: 'rule4',
-              description: 'Previous day same direction cant tap into LQW SCMSB after NH/NL against you',
+              description: 'Previous day cant tap into LQW SCMSB that made NH/NL against you',
               exceptions: ['NO EXCEPTION'],
               images: [
                 {
@@ -666,7 +666,7 @@ const steps: Record<string, Step> = {
             },
             {
               id: 'rule3',
-              description: 'Previous day opposite direction isnt SCMSB after NH/NL.',
+              description: 'Previous day opposite isnt SCMSB after a NH/NL.',
               exceptions: ['The current week is same direction over previous weeks high/low.'],
               images: []
             },
