@@ -52,10 +52,10 @@ export const steps: Record<string, Step> = {
           return [
             {
               id: 'rule1',
-              description: 'Closing into H4 Empty Space…OR…NON MSB STRUCTURE.',
+              description: 'Closing into H4 Empty Space or NON MSB STRUCTURE.',
               exceptions: [
-                'Manip Inside Bar is closing into H1 Empty Space…AND..your h4 NH/NL against didnt do a NH/NL manip pattern',
-                'Manip Inside Bar is closing into H1 non msb structure…AND..your h4 NH/NL against didnt do a NH/NL manip pattern'
+                'Manip Inside Bar is closing into H1 Empty Space…AND..your H4 NH/NL against didnt do a NH/NL manip pattern',
+                'Manip Inside Bar is closing into H1 non msb structure…AND..your H4 NH/NL against didnt do a NH/NL manip pattern'
               ],
               images: [
                 {
@@ -66,7 +66,8 @@ export const steps: Record<string, Step> = {
             },
             {
               id: 'rule2',
-              description: 'Supported by/trapped inside H4 Structure Body Zone. If theres LQW infront of the body zone, INVALID',
+              description: `Supported by/trapped inside H4 Structure Body Zone. 
+              If theres LQW infront of the body zone, INVALID`,
               exceptions: ['NO EXCEPTION'],
               images: [
                 {
