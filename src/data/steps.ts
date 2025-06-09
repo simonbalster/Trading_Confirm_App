@@ -645,7 +645,7 @@ const steps: Record<string, Step> = {
           return [
             {
               id: 'rule1',
-              description: 'Your H4 same direction candle must close inside the close wick of the daily opposite direction.',
+              description: 'Your H4 opposite direction candle must close inside the close wick of the daily opposite direction.',
               images: [
                 {
                   url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1749235130/Picture54_uw882q.png',
