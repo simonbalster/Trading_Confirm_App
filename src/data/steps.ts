@@ -1016,10 +1016,9 @@ Non MSB structure`,
             },
             {
               id: 'rule3',
-              description: `Candle before your LQW:
-              Your structure candle directly before your LQW can be anything. Inside bar, non msb engulf, msb engulf.
-              The structure candle directly before your LQW will ALWAYS need to be a HL or LH.
-              Your LQW manips that structure wick. The structure candle can be non manip AND doesnt need to be supported by anything.`,
+              description: `Any type of Candle before your LQW (structure candle) has made HL or LH.
+              Your LQW manips that structure wick. 
+              The structure candle can be non manip AND doesnt need to be supported by anything.`,
               images: []
             },
            {
