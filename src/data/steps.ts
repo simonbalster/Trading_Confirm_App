@@ -1001,7 +1001,7 @@ Non MSB structure`,
           return [
             {
               id: 'rule1',
-              description: ': H1 Manip IB/NON MSB Engulf directly before your LQW CAN NOT Manip recent structure wick against. ',
+              description: 'H1 Manip IB/NON MSB Engulf directly before your LQW CAN NOT Manip recent structure wick against. ',
               exceptions: [
                 'H1 manip IB/Non msb engulf manipulates the structure wick off your H1 NH/NL level like the image above.',
                 'H1 manip IB/Non msb engulf is coming off engulf msb/scmsb that closed over structure wick.'
