@@ -78,6 +78,16 @@ const RuleItem: React.FC<RuleItemProps> = ({
     onStatusChange(rule.id, newStatus);
   };
 
+  // Function to render description with proper line breaks
+  const renderDescription = (description: string) => {
+    return description.split('\n').map((line, index) => (
+      <React.Fragment key={index}>
+        {line}
+        {index < description.split('\n').length - 1 && <br />}
+      </React.Fragment>
+    ));
+  };
+
   return (
     <div className={`flex flex-col mb-3 border rounded-lg p-3 bg-white dark:bg-gray-800 shadow-sm transition-all duration-200 hover:shadow-md ${
       singleSelection && isSelected ? 'border-blue-300 dark:border-blue-600 bg-blue-50 dark:bg-blue-900/20' : 
@@ -121,7 +131,7 @@ const RuleItem: React.FC<RuleItemProps> = ({
               singleSelection && isSelected ? 'text-blue-800 dark:text-blue-200' : 
               ruleStatus === 'na' ? 'text-blue-700 dark:text-blue-300' : 'text-gray-800 dark:text-gray-200'
             }`}>
-              {rule.description}
+              {renderDescription(rule.description)}
             </p>
             
             <div className="flex flex-wrap gap-2 mt-2">
