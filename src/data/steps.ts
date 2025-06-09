@@ -911,7 +911,7 @@ H1 NON MSB Engulf structure (any)`,
             },
             {
               id: 'rule4',
-              description: 'Coming off H1 NH/NL level. NON Manip NON MSB Engulf is ALWAYS HL or LH off the level.',
+              description: 'Coming off H1 NH/NL level. Is HL or LH off the level.',
               images: []
             },
              {
@@ -939,7 +939,7 @@ Non MSB structure`,
             },
             {
               id: 'rule7',
-              description: `Closing/Tapping into:
+              description: `Confirm candle Closing/Tapping into:
 H1 Empty Space
 H1 NON MSB inside bar structure (any)
 H1 NON MSB Engulf structure (any)`,
