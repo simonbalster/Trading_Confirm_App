@@ -963,7 +963,7 @@ H1 NON MSB Engulf structure (any)`,
             },
             {
               id: 'rule2',
-              description: 'Coming off H1 NH/NL level. Manip Normal SCMSB is ALWAYS HL or LH off the level.',
+              description: 'Coming off H1 NH/NL level. Is HL or LH off the level.',
               images: []
             },
             {
