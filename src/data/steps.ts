@@ -1031,7 +1031,9 @@ Non MSB structure`,
             },
             {
               id: 'rule5',
-              description: 'Your Engulf MSB/SCMSB directly before LQW must close over the structure wick OR Your LQW closes over the most recent structure wick the Engulf msb/scmsb failed to close over',
+              description: `If structure candle before LQW is Engulf MSB/SCMSB it must close over most recent structure wicks 
+              or LQW must close over the structure wicks
+              orr LQW closes over the most recent structure wick the Engulf MSB/SCMSB failed to close over`,
               exceptions: ['NO EXCEPTION'],
               allowNA: true,
               images: [
@@ -1043,10 +1045,8 @@ Non MSB structure`,
             },
             {
               id: 'rule6',
-              description: `Candle directly before LQW is inside bar/Non MSB engulf?:
-              Your IB/Non MSB engulf directly before LQW will ALWAYS be a higher low/lower high. 
-              Directly before the inside bar/non MSB engulf there MUST be a H1 new high/new low level. 
-              Your LQW doesnt need to COME OFF/TAP the H1 NH/NL level either…it just has to be a higher low/lower high after it.`,
+              description: `If structure candle before LQW is IB/NON MSB Engulf and made HL/LH:
+              LQW doesnt need to COME OFF/TAP the H1 NH/NL level either…it just has to be a HL/LH high after it.`,
               allowNA: true,
               images: []
             },
