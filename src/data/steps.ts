@@ -943,7 +943,7 @@ export const steps: Record<string, Step> = {
               id: 'rule7',
               description: `Confirm candle Closing/Tapping into:
 • H1 Empty Space
-• H1 NON MSB inside bar structure (any)
+• H1 NON MSB IB structure (any)
 • H1 NON MSB Engulf structure (any)`,
               exceptions: ['NO EXCEPTION'],
               images: []
@@ -1019,8 +1019,8 @@ export const steps: Record<string, Step> = {
             {
               id: 'rule3',
               description: `Any type of Candle before your LQW (structure candle H or L) has made HL or LH.
-Your LQW manips that structure wick. 
-The structure candle can be non manip AND doesnt need to be supported by anything.`,
+• Your LQW manips that structure wick. 
+• The structure candle can be NON Manip AND doesnt need to be supported by anything.`,
               images: []
             },
            {
@@ -1033,9 +1033,10 @@ Your Engulf MSB/SCMSB directly before LQW is HL/LH`,
             },
             {
               id: 'rule5',
-              description: `If structure candle before LQW is Engulf MSB/SCMSB it must close over most recent structure wicks 
-or LQW must close over the structure wicks
-or LQW closes over the most recent structure wick the Engulf MSB/SCMSB failed to close over`,
+              description: `If structure candle before LQW is Engulf MSB/SCMSB 
+• it must close over most recent structure wicks 
+• or LQW must close over the structure wicks
+• or LQW closes over the most recent structure wick the Engulf MSB/SCMSB failed to close over`,
               exceptions: ['NO EXCEPTION'],
               allowNA: true,
               images: [
@@ -1048,7 +1049,7 @@ or LQW closes over the most recent structure wick the Engulf MSB/SCMSB failed to
             {
               id: 'rule6',
               description: `If structure candle before LQW is IB/NON MSB Engulf and made HL/LH:
-LQW doesnt need to come off/tap the H1 NH/NL level, it just has to be a HL/LH high after it.`,
+• LQW doesnt need to come off/tap the H1 NH/NL level, it just has to be a HL/LH high after it.`,
               allowNA: true,
               images: []
             },
