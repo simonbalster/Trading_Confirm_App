@@ -655,7 +655,7 @@ const steps: Record<string, Step> = {
             },
             {
               id: 'rule2',
-              description: 'If your H4 candle closed over previous days OPPOSITE day open wick, the open wick of your H4 opposite candle MUST also be within the range of the previous opposite direction candle.',
+              description: 'If your H4 candle closed over previous days OPPOSITE day open wick, the open wick of your H4 opposite candle MUST be within the range of the previous opposite direction candle.',
               allowNA: true,
               images: [
                 {
@@ -683,7 +683,7 @@ const steps: Record<string, Step> = {
             },
             {
               id: 'rule5',
-              description: 'Previous day opposite direction cant come off "LQW directly after SCMSB after NH/NL" against you',
+              description: 'Previous day opposite candle cant come off "LQW directly after SCMSB after NH/NL" against you',
               exceptions: ['NO EXCEPTION'],
               images: [
                 {
