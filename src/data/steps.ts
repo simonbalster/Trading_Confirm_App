@@ -178,7 +178,7 @@ export const steps: Record<string, Step> = {
               images: [
                 {
                   url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1749217850/Picture10_yceqcd.jpg',
-                  alt: 'Example of manipulation of H4 NH/NL structure wick'
+                  alt: 'VALID Example of manipulation of H4 NH/NL structure wick'
                 },
                 {
                   url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1749217926/Picture11_jssknu.jpg',
