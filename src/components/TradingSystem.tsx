@@ -4,7 +4,7 @@ import ProgressBar from './ProgressBar';
 import steps from '../data/steps';
 import forexPairs from '../data/forexPairs';
 import { StepState, StepsState, ForexPair, TradeDirection } from '../types';
-import { BarChart2, TrendingUp, Sun, Moon } from 'lucide-react';
+import { BarChart2, TrendingUp, TrendingDown, Sun, Moon } from 'lucide-react';
 
 interface TradingSystemProps {
   isDarkMode: boolean;
@@ -145,13 +145,33 @@ const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMod
         </div>
         <p className="text-gray-600 dark:text-gray-300">Validate your trading setup against proven rules</p>
         
-        {/* Display selected forex pair */}
+        {/* Display selected forex pair with dynamic styling based on trade direction */}
         {selectedForexPair && (
-          <div className="mt-4 inline-flex items-center px-4 py-2 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 rounded-lg">
-            <TrendingUp size={20} className="text-blue-600 dark:text-blue-400 mr-2" />
+          <div className={`mt-4 inline-flex items-center px-4 py-2 border rounded-lg ${
+            tradeDirection === 'buy' 
+              ? 'bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-700' 
+              : 'bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-700'
+          }`}>
+            {tradeDirection === 'buy' ? (
+              <TrendingUp size={20} className="text-green-600 dark:text-green-400 mr-2" />
+            ) : (
+              <TrendingDown size={20} className="text-red-600 dark:text-red-400 mr-2" />
+            )}
             <div className="text-left">
-              <div className="text-lg font-bold text-blue-800 dark:text-blue-200">{selectedForexPair.symbol}</div>
-              <div className="text-xs text-blue-600 dark:text-blue-400 capitalize">{selectedForexPair.category} pair</div>
+              <div className={`text-lg font-bold ${
+                tradeDirection === 'buy' 
+                  ? 'text-green-800 dark:text-green-200' 
+                  : 'text-red-800 dark:text-red-200'
+              }`}>
+                {selectedForexPair.symbol}
+              </div>
+              <div className={`text-xs capitalize ${
+                tradeDirection === 'buy' 
+                  ? 'text-green-600 dark:text-green-400' 
+                  : 'text-red-600 dark:text-red-400'
+              }`}>
+                {selectedForexPair.category} pair
+              </div>
             </div>
           </div>
         )}
