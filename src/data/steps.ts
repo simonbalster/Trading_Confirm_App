@@ -586,7 +586,7 @@ const steps: Record<string, Step> = {
             },
             {
               id: 'rule2',
-              description: 'If your H4 candle closed over previous day close wick, the open wick of your H4 MUST be within the range of the previous day same direction candle.',
+              description: 'If H4 candle closed over previous day close wick, the open wick of your H4 MUST be within the range of the previous day same direction candle.',
               allowNA: true,
               images: [
                 {
