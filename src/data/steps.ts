@@ -851,7 +851,7 @@ H1 NON MSB Engulf structure (any)`,
             },
             {
               id: 'rule4',
-              description: 'Coming off H1 NH/NL level. Manip NON MSB Engulf is ALWAYS HL or LH off the level.',
+              description: 'Confirm candle coming off H1 NH/NL level. is HL or LH off the level.',
               images: []
             },
              {
