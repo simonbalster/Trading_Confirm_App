@@ -326,7 +326,7 @@ export const steps: Record<string, Step> = {
           return [
             {
               id: 'rule1',
-              description: 'Closing into H4 Empty Space…OR…NON MSB STRUCTURE',
+              description: 'Closing into H4 Empty Space or NON MSB structure',
               exceptions: [
                 'Single candle is closing into H1 Empty Space…AND..your h4 NH/NL against didnt do a NH/NL manip pattern',
                 'Single candle is closing into H1 non msb structure…AND..your h4 NH/NL against didnt do a NH/NL manip pattern'
@@ -368,7 +368,7 @@ export const steps: Record<string, Step> = {
             },
             {
               id: 'rule4',
-              description: 'Is NOT a NH or NL on ANY FEED..i.e It cannot close over any previous structure or structure wick. ',
+              description: 'Is NOT a NH or NL on ANY FEED..i.e It cannot close over any previous H4 structure or structure wicks. ',
               exceptions: ['NO EXCEPTION'],
               images: [
                 {
