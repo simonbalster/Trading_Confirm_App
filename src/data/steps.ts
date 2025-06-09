@@ -822,9 +822,9 @@ H1 NON MSB Engulf structure (any)`,
             },
             {
               id: 'rule5',
-              description: `Confirm candle closing/Tapping into:
-H1 Empty Space
-H1 NON MSB inside bar structure (any)
+              description: `Confirm candle closing/tapping into:
+H1 Empty Space or
+H1 NON MSB IB structure (any) or
 H1 NON MSB Engulf structure (any)`,
               exceptions: ['NO EXCEPTION'],
               images: []
