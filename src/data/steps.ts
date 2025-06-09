@@ -392,7 +392,7 @@ export const steps: Record<string, Step> = {
           return [
             {
               id: 'rule1',
-              description: ': Closing into H4 Empty Space OR NON MSB STRUCTURE.',
+              description: 'Closing into H4 Empty Space Or NON MSB structure.',
               exceptions: [
                 'LQW is closing into H1 Empty Space…AND..your h4 NH/NL against didnt do a NH/NL manip pattern...OR',
                 'LQW is closing into H1 non msb structure…AND..your h4 NH/NL against didnt do a NH/NL manip pattern'
