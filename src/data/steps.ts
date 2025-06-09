@@ -195,8 +195,8 @@ export const steps: Record<string, Step> = {
               id: 'rule1',
               description: 'Closing into H4 Empty Space or NON MSB structure.',
               exceptions: [
-                'Manip Non MSB Engulf is closing into H1 Empty Space…AND..your h4 NH/NL against didnt do a NH/NL manip pattern...OR',
-                'Manip Non MSB Engulf is closing into H1 non msb structure…AND..your h4 NH/NL against didnt do a NH/NL manip pattern'
+                'Manip Non MSB Engulf is closing into H1 Empty Space…AND..your H4 NH/NL against didnt do a NH/NL manip pattern...OR',
+                'Manip Non MSB Engulf is closing into H1 non msb structure…AND..your H4 NH/NL against didnt do a NH/NL manip pattern'
                 ],
                 
               images: [
