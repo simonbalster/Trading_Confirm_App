@@ -777,8 +777,8 @@ export const steps: Record<string, Step> = {
             {
               id: 'rule5',
               description: `Closing/Tapping into:
-H1 Empty Space
-H1 NON MSB inside bar structure (any)
+H1 Empty Space or 
+H1 NON MSB IB structure (any) or 
 H1 NON MSB Engulf structure (any)`,
               exceptions: ['NO EXCEPTION'],
               images: []
@@ -882,8 +882,8 @@ Non MSB structure`,
             {
               id: 'rule7',
               description: `Confirm candle closing/Tapping into:
-H1 Empty Space
-H1 NON MSB inside bar structure (any)
+H1 Empty Space or 
+H1 NON MSB IB structure (any) or
 H1 NON MSB Engulf structure (any)`,
               exceptions: ['NO EXCEPTION'],
               images: []
