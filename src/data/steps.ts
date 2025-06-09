@@ -4,9 +4,9 @@ import forexPairs from './forexPairs';
 const steps: Record<string, Step> = {
   forexPairSelection: {
     id: 'forexPairSelection',
-    title: 'Select Trade Instrument',
-    description: 'Choose instrument you want to validate your trading setup for:',
-    progressBarLabel: 'Trade Instrument',
+    title: 'Trade Direction',
+    description: 'Select your trade direction and choose the instrument to validate:',
+    progressBarLabel: 'Trade Setup',
     options: forexPairs.map(pair => ({
       id: pair.id,
       label: pair.label

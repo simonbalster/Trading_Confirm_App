@@ -182,9 +182,6 @@ const StepContainer: React.FC<StepContainerProps> = ({
       {/* Trade Direction Toggle - Only show for forex pair selection */}
       {isForexPairSelection && onTradeDirectionChange && (
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Trade Direction
-          </label>
           <div className="flex items-center space-x-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1 max-w-xs">
             <button
               onClick={() => onTradeDirectionChange('buy')}
