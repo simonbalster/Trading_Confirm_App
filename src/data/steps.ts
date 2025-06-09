@@ -208,7 +208,8 @@ export const steps: Record<string, Step> = {
             },
             {
               id: 'rule2',
-              description: 'Supported by/trapped inside any H4 Structure Body Zone. If there\'s LQW infront of the body zone, INVALID',
+              description: `Supported by/trapped inside any H4 Structure Body Zone. 
+                If there\'s LQW infront of the body zone, INVALID`,
               exceptions: ['NO EXCEPTION'],
               images: [
                 {
