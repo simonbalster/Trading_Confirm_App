@@ -1033,8 +1033,8 @@ Your Engulf MSB/SCMSB directly before LQW is HL/LH`,
             },
             {
               id: 'rule5',
-              description: `If structure candle before LQW is Engulf MSB/SCMSB 
-• it must close over most recent structure wicks 
+              description: `If structure candle before LQW is Engulf MSB/SCMSB (NH or NL)
+• Engulf must close over most recent structure wicks 
 • or LQW must close over the structure wicks
 • or LQW closes over the most recent structure wick the Engulf MSB/SCMSB failed to close over`,
               exceptions: ['NO EXCEPTION'],
