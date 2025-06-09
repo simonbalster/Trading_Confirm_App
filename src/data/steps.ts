@@ -776,7 +776,7 @@ export const steps: Record<string, Step> = {
             },
             {
               id: 'rule5',
-              description: `Closing/Tapping into:
+              description: `Confirm candle closing/Tapping into:
 • H1 Empty Space or
 • H1 NON MSB IB structure (any) or 
 • H1 NON MSB Engulf structure (any)`,
@@ -1051,7 +1051,12 @@ Your Engulf MSB/SCMSB directly before LQW is HL/LH`,
               description: `If structure candle before LQW is IB/NON MSB Engulf and made HL/LH:
 • LQW doesnt need to come off/tap the H1 NH/NL level, it just has to be a HL/LH high after it.`,
               allowNA: true,
-              images: []
+              images: [
+                {
+                  url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1749471159/Picture70_yc8v3v.jpg',
+                  alt: 'Example of LQW not tapping H1 NH level'
+                }
+              ]
             },
             {
               id: 'rule7',
