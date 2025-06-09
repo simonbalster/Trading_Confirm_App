@@ -4,7 +4,7 @@ import ProgressBar from './ProgressBar';
 import steps from '../data/steps';
 import forexPairs from '../data/forexPairs';
 import { StepState, StepsState, ForexPair, TradeDirection } from '../types';
-import { BarChart2, TrendingUp, TrendingDown, Sun, Moon } from 'lucide-react';
+import { BarChart2, TrendingUp, Sun, Moon } from 'lucide-react';
 
 interface TradingSystemProps {
   isDarkMode: boolean;
@@ -145,34 +145,6 @@ const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMod
         </div>
         <p className="text-gray-600 dark:text-gray-300">Validate your trading setup against proven rules</p>
         
-        {/* Trade Direction Toggle */}
-        <div className="mt-6 mb-4">
-          <div className="flex items-center justify-center space-x-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1 max-w-xs mx-auto">
-            <button
-              onClick={() => handleTradeDirectionChange('buy')}
-              className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
-                tradeDirection === 'buy'
-                  ? 'bg-green-500 text-white shadow-md'
-                  : 'text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400'
-              }`}
-            >
-              <TrendingUp size={16} className="mr-1" />
-              Buy Setup
-            </button>
-            <button
-              onClick={() => handleTradeDirectionChange('sell')}
-              className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
-                tradeDirection === 'sell'
-                  ? 'bg-red-500 text-white shadow-md'
-                  : 'text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400'
-              }`}
-            >
-              <TrendingDown size={16} className="mr-1" />
-              Sell Setup
-            </button>
-          </div>
-        </div>
-        
         {/* Display selected forex pair */}
         {selectedForexPair && (
           <div className="mt-4 inline-flex items-center px-4 py-2 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 rounded-lg">
@@ -201,6 +173,7 @@ const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMod
           onReset={handleReset}
           prevStepSelectedOption={prevStepSelectedOption}
           tradeDirection={tradeDirection}
+          onTradeDirectionChange={handleTradeDirectionChange}
         />
       )}
       

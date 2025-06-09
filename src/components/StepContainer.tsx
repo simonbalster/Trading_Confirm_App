@@ -3,7 +3,7 @@ import { Step, StepState, ValidationResult, RuleStatus, TradeDirection } from '.
 import Dropdown from './Dropdown';
 import RuleItem from './RuleItem';
 import { validateRules } from '../utils/validation';
-import { ChevronRight, CheckCircle, AlertCircle, RotateCcw, Sparkles } from 'lucide-react';
+import { ChevronRight, CheckCircle, AlertCircle, RotateCcw, Sparkles, TrendingUp, TrendingDown } from 'lucide-react';
 
 interface StepContainerProps {
   step: Step;
@@ -13,6 +13,7 @@ interface StepContainerProps {
   onReset: () => void;
   prevStepSelectedOption?: string | null;
   tradeDirection: TradeDirection;
+  onTradeDirectionChange?: (direction: TradeDirection) => void;
 }
 
 const StepContainer: React.FC<StepContainerProps> = ({
@@ -23,6 +24,7 @@ const StepContainer: React.FC<StepContainerProps> = ({
   onReset,
   prevStepSelectedOption = null,
   tradeDirection,
+  onTradeDirectionChange,
 }) => {
   const [ruleAnswers, setRuleAnswers] = React.useState<Record<string, RuleStatus>>({});
   const [selectedRuleId, setSelectedRuleId] = React.useState<string | null>(null);
@@ -176,6 +178,39 @@ const StepContainer: React.FC<StepContainerProps> = ({
         </button>
       </div>
       <p className="text-gray-600 dark:text-gray-300 mb-4">{step.description}</p>
+      
+      {/* Trade Direction Toggle - Only show for forex pair selection */}
+      {isForexPairSelection && onTradeDirectionChange && (
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Trade Direction
+          </label>
+          <div className="flex items-center space-x-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1 max-w-xs">
+            <button
+              onClick={() => onTradeDirectionChange('buy')}
+              className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                tradeDirection === 'buy'
+                  ? 'bg-green-500 text-white shadow-md'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400'
+              }`}
+            >
+              <TrendingUp size={16} className="mr-1" />
+              Buy Setup
+            </button>
+            <button
+              onClick={() => onTradeDirectionChange('sell')}
+              className={`flex items-center px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                tradeDirection === 'sell'
+                  ? 'bg-red-500 text-white shadow-md'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400'
+              }`}
+            >
+              <TrendingDown size={16} className="mr-1" />
+              Sell Setup
+            </button>
+          </div>
+        </div>
+      )}
       
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
