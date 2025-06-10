@@ -578,7 +578,9 @@ export const steps: Record<string, Step> = {
           return [
             {
               id: 'rule1',
-              description: 'H4 same direction candle must close inside the open wick of the daily same direction.',
+              description: `H4 same direction candle must close inside the open wick of the daily same direction.
+              unless rule below applies`,
+              allowNA: true,
               images: [
                 {
                   url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1749235125/Picture52_r4i7jg.png',
