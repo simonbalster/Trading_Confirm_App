@@ -1,7 +1,7 @@
 import { Step, TradeDirection } from '../types';
 import forexPairs from './forexPairs';
 
-export const steps: Record<string, Step> = {
+const steps: Record<string, Step> = {
   forexPairSelection: {
     id: 'forexPairSelection',
     title: 'Trade Direction',
@@ -1088,3 +1088,5 @@ Your Engulf MSB/SCMSB directly before LQW is HL/LH`,
     }
   }
 };
+
+export default steps;

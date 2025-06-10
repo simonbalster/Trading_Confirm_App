@@ -1,7 +1,7 @@
 import React from 'react';
 import StepContainer from './StepContainer';
 import ProgressBar from './ProgressBar';
-import { steps } from '../data/steps';
+import steps from '../data/steps';
 import forexPairs from '../data/forexPairs';
 import { StepState, StepsState, ForexPair, TradeDirection } from '../types';
 import { BarChart2, TrendingUp, TrendingDown, Sun, Moon } from 'lucide-react';
