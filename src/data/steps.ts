@@ -601,7 +601,7 @@ export const steps: Record<string, Step> = {
             },
             {
               id: 'rule3',
-              description: 'Previous day cant tap into SCMSB after NH/NL against you',
+              description: 'Previous day not tappping into SCMSB after NH/NL against you',
               exceptions: ['NO EXCEPTION'],
               images: [
                 {
@@ -612,7 +612,7 @@ export const steps: Record<string, Step> = {
             },
             {
               id: 'rule4',
-              description: 'Previous day cant tap into LQW SCMSB after NH/NL against you',
+              description: 'Previous day not tapping into LQW SCMSB after NH/NL against you',
               exceptions: ['NO EXCEPTION'],
               images: [
                 {
