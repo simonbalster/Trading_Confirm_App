@@ -27,6 +27,7 @@ const unsortedForexPairs: ForexPair[] = [
   { id: 'EURCAD', label: 'EUR/CAD - Euro vs Canadian Dollar', symbol: 'EUR/CAD', category: 'minor' },
   { id: 'GBPCAD', label: 'GBP/CAD - British Pound vs Canadian Dollar', symbol: 'GBP/CAD', category: 'minor' },
   { id: 'AUDCAD', label: 'AUD/CAD - Australian Dollar vs Canadian Dollar', symbol: 'AUD/CAD', category: 'minor' },
+  { id: 'AUDCHF', label: 'AUD/CHF - Australian Dollar vs Swiss Franc', symbol: 'AUD/CHF', category: 'minor' },
   { id: 'AUDJPY', label: 'AUD/JPY - Australian Dollar vs Japanese Yen', symbol: 'AUD/JPY', category: 'minor' },
   { id: 'CADJPY', label: 'CAD/JPY - Canadian Dollar vs Japanese Yen', symbol: 'CAD/JPY', category: 'minor' },
   { id: 'CADCHF', label: 'CAD/CHF - Canadian Dollar vs Swiss Franc', symbol: 'CAD/CHF', category: 'minor' },
