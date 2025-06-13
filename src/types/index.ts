@@ -36,7 +36,7 @@ export interface Step {
   nextStep?: string;
   progressBarLabel?: string;
   getRules?: (selectedOption: string, tradeDirection?: TradeDirection) => Rule[];
-  getOptions?: (prevStepSelectedOption: string | null, tradeDirection?: TradeDirection) => Option[];
+  getOptions?: (prevStepSelectedOption: string | null, tradeDirection?: TradeDirection, prevStepRuleAnswers?: Record<string, RuleStatus>) => Option[];
 }
 
 export interface ValidationResult {
@@ -47,6 +47,7 @@ export interface ValidationResult {
 export interface StepState {
   selectedOption: string | null;
   validationResult: ValidationResult | null;
+  ruleAnswers?: Record<string, RuleStatus>;
 }
 
 export type StepsState = Record<string, StepState>;

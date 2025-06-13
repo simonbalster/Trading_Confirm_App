@@ -12,6 +12,7 @@ interface StepContainerProps {
   onNext: (nextStepId: string | undefined) => void;
   onReset: () => void;
   prevStepSelectedOption?: string | null;
+  prevStepRuleAnswers?: Record<string, RuleStatus>;
   tradeDirection: TradeDirection;
   onTradeDirectionChange?: (direction: TradeDirection) => void;
 }
@@ -23,6 +24,7 @@ const StepContainer: React.FC<StepContainerProps> = ({
   onNext,
   onReset,
   prevStepSelectedOption = null,
+  prevStepRuleAnswers = {},
   tradeDirection,
   onTradeDirectionChange,
 }) => {
@@ -39,10 +41,10 @@ const StepContainer: React.FC<StepContainerProps> = ({
   // Get dynamic options if available, otherwise use static options
   const availableOptions = React.useMemo(() => {
     if (step.getOptions) {
-      return step.getOptions(prevStepSelectedOption, tradeDirection);
+      return step.getOptions(prevStepSelectedOption, tradeDirection, prevStepRuleAnswers);
     }
     return step.options;
-  }, [step, prevStepSelectedOption, tradeDirection]);
+  }, [step, prevStepSelectedOption, tradeDirection, prevStepRuleAnswers]);
 
   // Only NonMANIPIB and NonMANIPNONMSBENGULF are single selection steps
   const isSingleSelectionStep = stepState.selectedOption === 'NonMANIPIB' || stepState.selectedOption === 'NonMANIPNONMSBENGULF';
@@ -67,37 +69,40 @@ const StepContainer: React.FC<StepContainerProps> = ({
   }, [currentRules, isSingleSelectionStep]);
 
   const handleOptionSelect = (optionId: string) => {
-    onUpdateState(step.id, {
+    const newState = {
       ...stepState,
       selectedOption: optionId,
-      validationResult: null
-    });
+      validationResult: null,
+      ruleAnswers: {}
+    };
+    onUpdateState(step.id, newState);
   };
 
   const handleRuleStatusChange = (ruleId: string, status: RuleStatus) => {
+    let newRuleAnswers: Record<string, RuleStatus>;
+    
     if (isSingleSelectionStep) {
       // For single selection steps, only allow one rule to be selected
       if (selectedRuleId === ruleId && status === 'satisfied') {
         // Deselect if clicking the same rule
         setSelectedRuleId(null);
-        setRuleAnswers(
-          Object.fromEntries(currentRules.map(rule => [rule.id, 'not_satisfied' as RuleStatus]))
-        );
+        newRuleAnswers = Object.fromEntries(currentRules.map(rule => [rule.id, 'not_satisfied' as RuleStatus]));
       } else if (status === 'satisfied') {
         // Select new rule and mark it as satisfied
         setSelectedRuleId(ruleId);
-        setRuleAnswers(
-          Object.fromEntries(currentRules.map(rule => [rule.id, rule.id === ruleId ? 'satisfied' as RuleStatus : 'not_satisfied' as RuleStatus]))
-        );
+        newRuleAnswers = Object.fromEntries(currentRules.map(rule => [rule.id, rule.id === ruleId ? 'satisfied' as RuleStatus : 'not_satisfied' as RuleStatus]));
+      } else {
+        newRuleAnswers = ruleAnswers;
       }
     } else {
       // For other options, allow multiple selections and N/A
-      const newRuleAnswers = {
+      newRuleAnswers = {
         ...ruleAnswers,
         [ruleId]: status
       };
-      setRuleAnswers(newRuleAnswers);
     }
+    
+    setRuleAnswers(newRuleAnswers);
   };
 
   const handleValidate = () => {
@@ -146,10 +151,12 @@ const StepContainer: React.FC<StepContainerProps> = ({
       );
     }
 
-    onUpdateState(step.id, {
+    const newState = {
       ...stepState,
-      validationResult
-    });
+      validationResult,
+      ruleAnswers
+    };
+    onUpdateState(step.id, newState);
 
     if (validationResult.valid) {
       if (step.nextStep) {

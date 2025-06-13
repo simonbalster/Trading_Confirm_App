@@ -1,4 +1,4 @@
-import { Step, TradeDirection } from '../types';
+import { Step, TradeDirection, RuleStatus } from '../types';
 import forexPairs from './forexPairs';
 
 const steps: Record<string, Step> = {
@@ -478,7 +478,8 @@ const steps: Record<string, Step> = {
             {
               id: 'rule2',
               description: 'Previous day MUST be the same direction close.',
-              exception:'If supported by Inside bar structure',
+              exceptions: ['If supported by Inside bar structure'],
+              allowNA: true,
               images: []
             },
             {
@@ -559,8 +560,16 @@ const steps: Record<string, Step> = {
     options: [],
     rules: [],
     nextStep: 'h1Confirmation',
-    getOptions: (prevStepSelectedOption: string | null, tradeDirection: TradeDirection = 'buy') => {
-      // If H4 Initial selection is ENGULFMSB or SCMSBA, only show Previous Same option
+    getOptions: (prevStepSelectedOption: string | null, tradeDirection: TradeDirection = 'buy', prevStepRuleAnswers: Record<string, RuleStatus> = {}) => {
+      // If H4 Initial selection is ENGULFMSB and rule2 is marked as N/A (exception applies), show both options
+      if (prevStepSelectedOption === 'ENGULFMSB' && prevStepRuleAnswers['rule2'] === 'na') {
+        return [
+          { id: 'PrevSame', label: 'Previous Day Same direction rules' },
+          { id: 'PrevOpp', label: 'Previous Day Opposite direction rules' }
+        ];
+      }
+      
+      // If H4 Initial selection is ENGULFMSB or SCMSBA (and rule2 is not N/A for ENGULFMSB), only show Previous Same option
       if (prevStepSelectedOption === 'ENGULFMSB' || prevStepSelectedOption === 'SCMSBA') {
         return [
           { id: 'PrevSame', label: 'Previous Day Same direction rules' }

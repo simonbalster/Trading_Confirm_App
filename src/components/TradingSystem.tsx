@@ -19,7 +19,7 @@ const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMod
     return Object.fromEntries(
       Object.values(steps).map(step => [
         step.id, 
-        { selectedOption: null, validationResult: null }
+        { selectedOption: null, validationResult: null, ruleAnswers: {} }
       ])
     );
   });
@@ -61,7 +61,7 @@ const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMod
       Object.fromEntries(
         Object.values(steps).map(step => [
           step.id,
-          { selectedOption: null, validationResult: null }
+          { selectedOption: null, validationResult: null, ruleAnswers: {} }
         ])
       )
     );
@@ -74,7 +74,7 @@ const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMod
       Object.fromEntries(
         Object.values(steps).map(step => [
           step.id,
-          { selectedOption: null, validationResult: null }
+          { selectedOption: null, validationResult: null, ruleAnswers: {} }
         ])
       )
     );
@@ -84,20 +84,24 @@ const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMod
 
   const currentStep = currentStepId ? steps[currentStepId] : null;
 
-  // Get the previous step's selected option for dynamic options
-  const getPrevStepSelectedOption = (stepId: string): string | null => {
+  // Get the previous step's selected option and rule answers for dynamic options
+  const getPrevStepData = (stepId: string): { selectedOption: string | null; ruleAnswers: Record<string, any> } => {
     const stepIds = Object.keys(steps);
     const currentIndex = stepIds.indexOf(stepId);
     
     if (currentIndex > 0) {
       const prevStepId = stepIds[currentIndex - 1];
-      return stepsState[prevStepId]?.selectedOption || null;
+      const prevStepState = stepsState[prevStepId];
+      return {
+        selectedOption: prevStepState?.selectedOption || null,
+        ruleAnswers: prevStepState?.ruleAnswers || {}
+      };
     }
     
-    return null;
+    return { selectedOption: null, ruleAnswers: {} };
   };
 
-  const prevStepSelectedOption = currentStepId ? getPrevStepSelectedOption(currentStepId) : null;
+  const prevStepData = currentStepId ? getPrevStepData(currentStepId) : { selectedOption: null, ruleAnswers: {} };
 
   // Generate the final validation message with H4 and H1 selections
   const getFinalValidationMessage = () => {
@@ -191,7 +195,8 @@ const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMod
           onUpdateState={handleUpdateStepState}
           onNext={handleNextStep}
           onReset={handleReset}
-          prevStepSelectedOption={prevStepSelectedOption}
+          prevStepSelectedOption={prevStepData.selectedOption}
+          prevStepRuleAnswers={prevStepData.ruleAnswers}
           tradeDirection={tradeDirection}
           onTradeDirectionChange={handleTradeDirectionChange}
         />
