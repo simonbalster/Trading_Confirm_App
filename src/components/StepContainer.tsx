@@ -248,6 +248,8 @@ const StepContainer: React.FC<StepContainerProps> = ({
                 onStatusChange={handleRuleStatusChange}
                 isSelected={isSingleSelectionStep ? selectedRuleId === rule.id : undefined}
                 singleSelection={isSingleSelectionStep}
+                currentStepId={step.id}
+                selectedOptionId={stepState.selectedOption}
               />
             ))}
           </div>

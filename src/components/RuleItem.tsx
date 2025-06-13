@@ -8,6 +8,8 @@ interface RuleItemProps {
   onStatusChange: (ruleId: string, status: RuleStatus) => void;
   isSelected?: boolean;
   singleSelection?: boolean;
+  currentStepId?: string;
+  selectedOptionId?: string | null;
 }
 
 const RuleItem: React.FC<RuleItemProps> = ({ 
@@ -15,10 +17,17 @@ const RuleItem: React.FC<RuleItemProps> = ({
   ruleStatus, 
   onStatusChange, 
   isSelected = false,
-  singleSelection = false 
+  singleSelection = false,
+  currentStepId,
+  selectedOptionId
 }) => {
   const [showException, setShowException] = React.useState(false);
   const [showImages, setShowImages] = React.useState(false);
+
+  // Check if this is the specific exception rule (ENGULFMSB rule2)
+  const isSpecificExceptionRule = currentStepId === 'h4Initial' && 
+                                  selectedOptionId === 'ENGULFMSB' && 
+                                  rule.id === 'rule2';
 
   const getButtonStyle = (status: RuleStatus) => {
     if (singleSelection) {
@@ -88,11 +97,72 @@ const RuleItem: React.FC<RuleItemProps> = ({
     ));
   };
 
+  // Get the appropriate styling for the container based on rule status and exception rule
+  const getContainerStyling = () => {
+    if (singleSelection && isSelected) {
+      return 'border-blue-300 dark:border-blue-600 bg-blue-50 dark:bg-blue-900/20';
+    } else if (ruleStatus === 'na') {
+      if (isSpecificExceptionRule) {
+        return 'border-green-300 dark:border-green-600 bg-green-50 dark:bg-green-900/20';
+      } else {
+        return 'border-blue-300 dark:border-blue-600 bg-blue-50 dark:bg-blue-900/20';
+      }
+    } else {
+      return 'border-gray-200 dark:border-gray-700';
+    }
+  };
+
+  // Get the appropriate text color based on rule status and exception rule
+  const getTextColor = () => {
+    if (singleSelection && isSelected) {
+      return 'text-blue-800 dark:text-blue-200';
+    } else if (ruleStatus === 'na') {
+      if (isSpecificExceptionRule) {
+        return 'text-green-700 dark:text-green-300';
+      } else {
+        return 'text-blue-700 dark:text-blue-300';
+      }
+    } else {
+      return 'text-gray-800 dark:text-gray-200';
+    }
+  };
+
+  // Get the appropriate button styling for the N/A/EXCP button
+  const getNAButtonStyling = () => {
+    if (ruleStatus === 'na') {
+      if (isSpecificExceptionRule) {
+        return 'bg-green-500 dark:bg-green-600 text-white hover:bg-green-600 dark:hover:bg-green-700 shadow-sm';
+      } else {
+        return 'bg-blue-500 dark:bg-blue-600 text-white hover:bg-blue-600 dark:hover:bg-blue-700';
+      }
+    } else {
+      if (isSpecificExceptionRule) {
+        return 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400';
+      } else {
+        return 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400';
+      }
+    }
+  };
+
+  // Get the appropriate button text and aria-label
+  const getButtonTextAndLabel = () => {
+    if (isSpecificExceptionRule) {
+      return {
+        text: 'EXCP',
+        ariaLabel: ruleStatus === 'na' ? "Remove Exception status" : "Mark as Exception"
+      };
+    } else {
+      return {
+        text: 'N/A',
+        ariaLabel: ruleStatus === 'na' ? "Remove N/A status" : "Mark as Not Applicable"
+      };
+    }
+  };
+
+  const buttonInfo = getButtonTextAndLabel();
+
   return (
-    <div className={`flex flex-col mb-3 border rounded-lg p-3 bg-white dark:bg-gray-800 shadow-sm transition-all duration-200 hover:shadow-md ${
-      singleSelection && isSelected ? 'border-blue-300 dark:border-blue-600 bg-blue-50 dark:bg-blue-900/20' : 
-      ruleStatus === 'na' ? 'border-green-300 dark:border-green-600 bg-green-50 dark:bg-green-900/20' : 'border-gray-200 dark:border-gray-700'
-    }`}>
+    <div className={`flex flex-col mb-3 border rounded-lg p-3 bg-white dark:bg-gray-800 shadow-sm transition-all duration-200 hover:shadow-md ${getContainerStyling()}`}>
       <div className="flex items-start justify-between">
         <div className="flex items-start flex-1">
           <div className="flex items-center mr-3">
@@ -113,24 +183,17 @@ const RuleItem: React.FC<RuleItemProps> = ({
             
             {rule.allowNA && !singleSelection && (
               <button
-                className={`ml-2 px-2 py-1 text-xs rounded-md transition-all duration-200 font-medium ${
-                  ruleStatus === 'na' 
-                    ? 'bg-green-500 dark:bg-green-600 text-white hover:bg-green-600 dark:hover:bg-green-700 shadow-sm' 
-                    : 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400'
-                }`}
+                className={`ml-2 px-2 py-1 text-xs rounded-md transition-all duration-200 font-medium ${getNAButtonStyling()}`}
                 onClick={handleNAToggle}
-                aria-label={ruleStatus === 'na' ? "Remove Exception status" : "Mark as Exception"}
+                aria-label={buttonInfo.ariaLabel}
               >
-                EXCP
+                {buttonInfo.text}
               </button>
             )}
           </div>
           
           <div className="flex-1">
-            <p className={`font-medium ${
-              singleSelection && isSelected ? 'text-blue-800 dark:text-blue-200' : 
-              ruleStatus === 'na' ? 'text-green-700 dark:text-green-300' : 'text-gray-800 dark:text-gray-200'
-            }`}>
+            <p className={`font-medium ${getTextColor()}`}>
               {renderDescription(rule.description)}
             </p>
             
