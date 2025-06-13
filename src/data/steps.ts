@@ -478,7 +478,7 @@ const steps: Record<string, Step> = {
             {
               id: 'rule2',
               description: 'Previous day MUST be the same direction close.',
-              exceptions: ['If supported by Inside bar structure'],
+              exceptions: ['Can be opposite daily candle close if H4 Engulf is supported by Inside bar structure'],
               allowNA: true,
               images: []
             },
