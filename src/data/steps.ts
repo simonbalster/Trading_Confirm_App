@@ -478,6 +478,7 @@ const steps: Record<string, Step> = {
             {
               id: 'rule2',
               description: 'Previous day MUST be the same direction close.',
+              exception:'If supported by Inside bar structure',
               images: []
             },
             {
