@@ -91,7 +91,7 @@ const RuleItem: React.FC<RuleItemProps> = ({
   return (
     <div className={`flex flex-col mb-3 border rounded-lg p-3 bg-white dark:bg-gray-800 shadow-sm transition-all duration-200 hover:shadow-md ${
       singleSelection && isSelected ? 'border-blue-300 dark:border-blue-600 bg-blue-50 dark:bg-blue-900/20' : 
-      ruleStatus === 'na' ? 'border-blue-300 dark:border-blue-600 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-200 dark:border-gray-700'
+      ruleStatus === 'na' ? 'border-green-300 dark:border-green-600 bg-green-50 dark:bg-green-900/20' : 'border-gray-200 dark:border-gray-700'
     }`}>
       <div className="flex items-start justify-between">
         <div className="flex items-start flex-1">
@@ -113,15 +113,15 @@ const RuleItem: React.FC<RuleItemProps> = ({
             
             {rule.allowNA && !singleSelection && (
               <button
-                className={`ml-2 px-2 py-1 text-xs rounded-md transition-all duration-200 ${
+                className={`ml-2 px-2 py-1 text-xs rounded-md transition-all duration-200 font-medium ${
                   ruleStatus === 'na' 
-                    ? 'bg-blue-500 dark:bg-blue-600 text-white hover:bg-blue-600 dark:hover:bg-blue-700' 
-                    : 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400'
+                    ? 'bg-green-500 dark:bg-green-600 text-white hover:bg-green-600 dark:hover:bg-green-700 shadow-sm' 
+                    : 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400'
                 }`}
                 onClick={handleNAToggle}
-                aria-label={ruleStatus === 'na' ? "Remove N/A status" : "Mark as Not Applicable"}
+                aria-label={ruleStatus === 'na' ? "Remove Exception status" : "Mark as Exception"}
               >
-                N/A
+                EXCP
               </button>
             )}
           </div>
@@ -129,7 +129,7 @@ const RuleItem: React.FC<RuleItemProps> = ({
           <div className="flex-1">
             <p className={`font-medium ${
               singleSelection && isSelected ? 'text-blue-800 dark:text-blue-200' : 
-              ruleStatus === 'na' ? 'text-blue-700 dark:text-blue-300' : 'text-gray-800 dark:text-gray-200'
+              ruleStatus === 'na' ? 'text-green-700 dark:text-green-300' : 'text-gray-800 dark:text-gray-200'
             }`}>
               {renderDescription(rule.description)}
             </p>
