@@ -9,9 +9,10 @@ import { BarChart2, TrendingUp, TrendingDown, Sun, Moon } from 'lucide-react';
 interface TradingSystemProps {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
+  onNavigateToRules: (stepId: string) => void;
 }
 
-const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMode }) => {
+const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMode, onNavigateToRules }) => {
   const [currentStepId, setCurrentStepId] = React.useState<string | null>('forexPairSelection');
   const [selectedForexPair, setSelectedForexPair] = React.useState<ForexPair | null>(null);
   const [tradeDirection, setTradeDirection] = React.useState<TradeDirection>('buy');
@@ -199,6 +200,7 @@ const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMod
           prevStepRuleAnswers={prevStepData.ruleAnswers}
           tradeDirection={tradeDirection}
           onTradeDirectionChange={handleTradeDirectionChange}
+          onNavigateToRules={onNavigateToRules}
         />
       )}
       

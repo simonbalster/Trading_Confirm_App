@@ -3,7 +3,7 @@ import { Step, StepState, ValidationResult, RuleStatus, TradeDirection } from '.
 import Dropdown from './Dropdown';
 import RuleItem from './RuleItem';
 import { validateRules } from '../utils/validation';
-import { ChevronRight, CheckCircle, AlertCircle, RotateCcw, Sparkles, TrendingUp, TrendingDown } from 'lucide-react';
+import { ChevronRight, CheckCircle, AlertCircle, RotateCcw, Sparkles, TrendingUp, TrendingDown, BookOpen } from 'lucide-react';
 
 interface StepContainerProps {
   step: Step;
@@ -15,6 +15,7 @@ interface StepContainerProps {
   prevStepRuleAnswers?: Record<string, RuleStatus>;
   tradeDirection: TradeDirection;
   onTradeDirectionChange?: (direction: TradeDirection) => void;
+  onNavigateToRules: (stepId: string) => void;
 }
 
 const StepContainer: React.FC<StepContainerProps> = ({
@@ -27,6 +28,7 @@ const StepContainer: React.FC<StepContainerProps> = ({
   prevStepRuleAnswers = {},
   tradeDirection,
   onTradeDirectionChange,
+  onNavigateToRules,
 }) => {
   const [ruleAnswers, setRuleAnswers] = React.useState<Record<string, RuleStatus>>({});
   const [selectedRuleId, setSelectedRuleId] = React.useState<string | null>(null);
@@ -51,6 +53,9 @@ const StepContainer: React.FC<StepContainerProps> = ({
 
   // Special handling for forex pair selection step
   const isForexPairSelection = step.id === 'forexPairSelection';
+
+  // Check if step has rules to show the "View Rules" button
+  const hasRules = (step.rules && step.rules.length > 0) || (step.getRules && typeof step.getRules === 'function');
 
   React.useEffect(() => {
     if (isSingleSelectionStep) {
@@ -176,13 +181,24 @@ const StepContainer: React.FC<StepContainerProps> = ({
     <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-5 mb-5 animate-fadeIn transition-colors duration-300">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">{step.title}</h2>
-        <button
-          onClick={onReset}
-          className="flex items-center px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
-        >
-          <RotateCcw size={16} className="mr-1" />
-          Reset
-        </button>
+        <div className="flex items-center space-x-2">
+          {hasRules && (
+            <button
+              onClick={() => onNavigateToRules(step.id)}
+              className="flex items-center px-3 py-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors duration-200"
+            >
+              <BookOpen size={16} className="mr-1" />
+              View Rules
+            </button>
+          )}
+          <button
+            onClick={onReset}
+            className="flex items-center px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
+          >
+            <RotateCcw size={16} className="mr-1" />
+            Reset
+          </button>
+        </div>
       </div>
       <p className="text-gray-600 dark:text-gray-300 mb-4">{step.description}</p>
       

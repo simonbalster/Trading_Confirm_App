@@ -1,5 +1,8 @@
 import React from 'react';
 import TradingSystem from './components/TradingSystem';
+import RulesPage from './pages/RulesPage';
+
+type AppView = 'validation' | 'rules';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = React.useState(() => {
@@ -7,6 +10,9 @@ function App() {
     const saved = localStorage.getItem('darkMode');
     return saved ? JSON.parse(saved) : false;
   });
+
+  const [currentView, setCurrentView] = React.useState<AppView>('validation');
+  const [currentRulesStepId, setCurrentRulesStepId] = React.useState<string>('');
 
   React.useEffect(() => {
     // Apply dark class to document element
@@ -24,9 +30,32 @@ function App() {
     setIsDarkMode(!isDarkMode);
   };
 
+  const navigateToRules = (stepId: string) => {
+    setCurrentRulesStepId(stepId);
+    setCurrentView('rules');
+  };
+
+  const navigateToValidation = () => {
+    setCurrentView('validation');
+    setCurrentRulesStepId('');
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-      <TradingSystem isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+      {currentView === 'validation' ? (
+        <TradingSystem 
+          isDarkMode={isDarkMode} 
+          toggleDarkMode={toggleDarkMode}
+          onNavigateToRules={navigateToRules}
+        />
+      ) : (
+        <RulesPage 
+          stepId={currentRulesStepId}
+          onBack={navigateToValidation}
+          isDarkMode={isDarkMode}
+          toggleDarkMode={toggleDarkMode}
+        />
+      )}
     </div>
   );
 }
