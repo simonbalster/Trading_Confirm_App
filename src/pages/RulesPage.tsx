@@ -5,16 +5,24 @@ import { TradeDirection } from '../types';
 import RuleDisplay from '../components/RuleDisplay';
 
 interface RulesPageProps {
-  stepId: string;
+  initialTab: string;
   onBack: () => void;
   isDarkMode: boolean;
   toggleDarkMode: () => void;
 }
 
-const RulesPage: React.FC<RulesPageProps> = ({ stepId, onBack, isDarkMode, toggleDarkMode }) => {
-  const step = steps[stepId];
+const RulesPage: React.FC<RulesPageProps> = ({ initialTab, onBack, isDarkMode, toggleDarkMode }) => {
+  const [activeTab, setActiveTab] = React.useState(initialTab);
 
-  if (!step) {
+  const tabs = [
+    { id: 'h4Initial', label: 'H4 Rules', description: 'H4 Candle Validation Rules' },
+    { id: 'dailyRules', label: 'Daily Rules', description: 'Daily Timeframe Rules' },
+    { id: 'h1Confirmation', label: 'H1 Rules', description: 'H1 Confirmation Rules' }
+  ];
+
+  const activeStep = steps[activeTab];
+
+  if (!activeStep) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
         <div className="max-w-4xl mx-auto">
@@ -34,8 +42,8 @@ const RulesPage: React.FC<RulesPageProps> = ({ stepId, onBack, isDarkMode, toggl
     );
   }
 
-  const hasStaticRules = step.rules && step.rules.length > 0;
-  const hasDynamicRules = step.getRules && typeof step.getRules === 'function';
+  const hasStaticRules = activeStep.rules && activeStep.rules.length > 0;
+  const hasDynamicRules = activeStep.getRules && typeof activeStep.getRules === 'function';
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
@@ -43,15 +51,38 @@ const RulesPage: React.FC<RulesPageProps> = ({ stepId, onBack, isDarkMode, toggl
         <div className="mb-6">
           <button
             onClick={onBack}
-            className="flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-200 mb-4"
+            className="flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-200 mb-6"
           >
             <ArrowLeft size={20} className="mr-2" />
             Back to Validation
           </button>
           
+          {/* Tab Navigation */}
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm mb-6">
+            <div className="flex border-b border-gray-200 dark:border-gray-700">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex-1 px-6 py-4 text-sm font-medium transition-colors duration-200 ${
+                    activeTab === tab.id
+                      ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                  }`}
+                >
+                  <div className="text-center">
+                    <div className="font-semibold">{tab.label}</div>
+                    <div className="text-xs mt-1 opacity-75">{tab.description}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          {/* Page Header */}
           <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-6">
-            <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">{step.title} Rules</h1>
-            <p className="text-gray-600 dark:text-gray-300 text-lg">{step.description}</p>
+            <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">{activeStep.title} Rules</h1>
+            <p className="text-gray-600 dark:text-gray-300 text-lg">{activeStep.description}</p>
           </div>
         </div>
 
@@ -60,7 +91,7 @@ const RulesPage: React.FC<RulesPageProps> = ({ stepId, onBack, isDarkMode, toggl
             <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-6">
               <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">General Rules</h2>
               <ul className="space-y-0">
-                {step.rules.map((rule, index) => (
+                {activeStep.rules.map((rule, index) => (
                   <RuleDisplay key={rule.id} rule={rule} ruleIndex={index} />
                 ))}
               </ul>
@@ -70,19 +101,19 @@ const RulesPage: React.FC<RulesPageProps> = ({ stepId, onBack, isDarkMode, toggl
 
         {hasDynamicRules && (
           <div className="space-y-8">
-            {step.options.map((option) => (
+            {activeStep.options.map((option) => (
               <div key={option.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-6">
                 <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">{option.label}</h2>
                 
                 {/* Show rules for both trade directions if applicable */}
                 {(['buy', 'sell'] as TradeDirection[]).map((direction) => {
-                  const rules = step.getRules!(option.id, direction);
+                  const rules = activeStep.getRules!(option.id, direction);
                   
                   if (rules.length === 0) return null;
                   
                   // Check if rules are different for buy vs sell
-                  const buyRules = step.getRules!(option.id, 'buy');
-                  const sellRules = step.getRules!(option.id, 'sell');
+                  const buyRules = activeStep.getRules!(option.id, 'buy');
+                  const sellRules = activeStep.getRules!(option.id, 'sell');
                   const rulesAreDifferent = JSON.stringify(buyRules) !== JSON.stringify(sellRules);
                   
                   return (

@@ -4,15 +4,14 @@ import ProgressBar from './ProgressBar';
 import steps from '../data/steps';
 import forexPairs from '../data/forexPairs';
 import { StepState, StepsState, ForexPair, TradeDirection } from '../types';
-import { BarChart2, TrendingUp, TrendingDown, Sun, Moon } from 'lucide-react';
+import { TrendingUp, TrendingDown } from 'lucide-react';
 
 interface TradingSystemProps {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
-  onNavigateToRules: (stepId: string) => void;
 }
 
-const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMode, onNavigateToRules }) => {
+const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMode }) => {
   const [currentStepId, setCurrentStepId] = React.useState<string | null>('forexPairSelection');
   const [selectedForexPair, setSelectedForexPair] = React.useState<ForexPair | null>(null);
   const [tradeDirection, setTradeDirection] = React.useState<TradeDirection>('buy');
@@ -126,28 +125,6 @@ const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMod
   return (
     <div className="max-w-3xl mx-auto p-4 sm:p-6">
       <div className="mb-8 text-center">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex-1"></div>
-          <div className="flex items-center justify-center">
-            <BarChart2 size={28} className="text-blue-600 dark:text-blue-400 mr-2" />
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-gray-100">
-              Forex Trading Validation System
-            </h1>
-          </div>
-          <div className="flex-1 flex justify-end">
-            <button
-              onClick={toggleDarkMode}
-              className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200"
-              aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-              {isDarkMode ? (
-                <Sun size={20} className="text-yellow-500" />
-              ) : (
-                <Moon size={20} className="text-gray-600" />
-              )}
-            </button>
-          </div>
-        </div>
         <p className="text-gray-600 dark:text-gray-300">Validate your trading setup against proven rules</p>
         
         {/* Display selected forex pair with dynamic styling based on trade direction */}
@@ -200,7 +177,6 @@ const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMod
           prevStepRuleAnswers={prevStepData.ruleAnswers}
           tradeDirection={tradeDirection}
           onTradeDirectionChange={handleTradeDirectionChange}
-          onNavigateToRules={onNavigateToRules}
         />
       )}
       

@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from './components/Header';
 import TradingSystem from './components/TradingSystem';
 import RulesPage from './pages/RulesPage';
 
@@ -12,7 +13,7 @@ function App() {
   });
 
   const [currentView, setCurrentView] = React.useState<AppView>('validation');
-  const [currentRulesStepId, setCurrentRulesStepId] = React.useState<string>('');
+  const [activeRulesTab, setActiveRulesTab] = React.useState<string>('h4Initial');
 
   React.useEffect(() => {
     // Apply dark class to document element
@@ -30,27 +31,31 @@ function App() {
     setIsDarkMode(!isDarkMode);
   };
 
-  const navigateToRules = (stepId: string) => {
-    setCurrentRulesStepId(stepId);
+  const handleViewAllRules = () => {
+    setActiveRulesTab('h4Initial');
     setCurrentView('rules');
   };
 
   const navigateToValidation = () => {
     setCurrentView('validation');
-    setCurrentRulesStepId('');
   };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+      <Header 
+        isDarkMode={isDarkMode}
+        toggleDarkMode={toggleDarkMode}
+        onViewAllRules={handleViewAllRules}
+      />
+      
       {currentView === 'validation' ? (
         <TradingSystem 
           isDarkMode={isDarkMode} 
           toggleDarkMode={toggleDarkMode}
-          onNavigateToRules={navigateToRules}
         />
       ) : (
         <RulesPage 
-          stepId={currentRulesStepId}
+          initialTab={activeRulesTab}
           onBack={navigateToValidation}
           isDarkMode={isDarkMode}
           toggleDarkMode={toggleDarkMode}
