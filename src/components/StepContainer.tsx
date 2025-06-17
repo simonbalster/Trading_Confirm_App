@@ -162,12 +162,12 @@ const StepContainer: React.FC<StepContainerProps> = ({
       if (step.nextStep) {
         setTimeout(() => {
           onNext(step.nextStep);
-        }, 3000); // Increased from 1000ms to 3000ms (3 seconds)
+        }, 2000); // Increased from 1000ms to 2000ms (2 seconds)
       } else {
         // This is the final step, trigger completion
         setTimeout(() => {
           onNext(undefined);
-        }, 3000); // Increased from 1000ms to 3000ms (3 seconds)
+        }, 2000); // Increased from 1000ms to 2000ms (2 seconds)
       }
     }
   };
