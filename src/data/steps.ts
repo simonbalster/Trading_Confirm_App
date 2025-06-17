@@ -343,6 +343,7 @@ const steps: Record<string, Step> = {
               description: 'Is NOT a nothing candle. i.e It didnt take out the High or Low of the previous candle.',
               images: []
             },
+            {
             id: 'rule3',
               description: 'If Single candle is in leg after NON Manip IB or NON Manip NON MSB Engulf refer to IB and NON MSB Engulf rules',
               allowNA: true,
