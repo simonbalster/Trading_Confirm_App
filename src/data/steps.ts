@@ -343,10 +343,16 @@ const steps: Record<string, Step> = {
               description: 'Is NOT a nothing candle. i.e It didnt take out the High or Low of the previous candle.',
               images: []
             },
+            id: 'rule3',
+              description: 'If Single candle is in leg after NON Manip IB or NON Manip NON MSB Engulf refer to IB and NON MSB Engulf rules',
+              allowNA: true,
+              images: []
+            },
             {
-              id: 'rule3',
+              id: 'rule4',
               description: 'If H4 Structure before your single candle is Manip IB or Manip NON MSB Engulf, they must be supported by/trapped inside any H4 Structure Body Zone. If there\'s LQW infront of the body zone, your H4 must STILL be in line with tapping the BODY zone. ',
               exceptions: ['TO STRUCTURE BEFORE - If the IB/NON MSB Engulf before your single candle is not trapped in structure ...then your single candle can still be valid if it closed back inside a structure wick. '],
+              allowNA: true,
               images: [
                 {
                   url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1749225013/Picture29_ylpico.jpg',
@@ -367,7 +373,7 @@ const steps: Record<string, Step> = {
               ]
             },
             {
-              id: 'rule4',
+              id: 'rule5',
               description: 'Is NOT a NH or NL on ANY FEED..i.e It cannot close over any previous H4 structure or structure wicks. ',
               exceptions: ['NO EXCEPTION'],
               images: [
@@ -378,7 +384,7 @@ const steps: Record<string, Step> = {
               ]
             },
             {
-              id: 'rule5',
+              id: 'rule6',
               description: 'If in Empty Space formed by most recent structure, the structure before your Empty Space CAN NOT be coming off H4 SCMSB after NH/NL in day before structure. ',
               images: [
                 {
