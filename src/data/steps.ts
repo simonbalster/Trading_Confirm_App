@@ -345,7 +345,7 @@ const steps: Record<string, Step> = {
             },
             {
             id: 'rule3',
-              description: 'If Single candle is in leg after NON Manip IB or NON Manip NON MSB Engulf refer to IB and NON MSB Engulf rules',
+              description: 'If Single candle is in leg after NON Manip IB or NON Manip NON MSB Engulf refer to (NON MANIP) - IB and NON MSB Engulf rules',
               allowNA: true,
               images: []
             },
