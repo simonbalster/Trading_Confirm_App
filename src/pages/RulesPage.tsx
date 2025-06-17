@@ -3,6 +3,7 @@ import { ArrowLeft, TrendingUp, TrendingDown } from 'lucide-react';
 import steps from '../data/steps';
 import { TradeDirection } from '../types';
 import RuleDisplay from '../components/RuleDisplay';
+import Dropdown from '../components/Dropdown';
 
 interface RulesPageProps {
   initialTab: string;
@@ -13,12 +14,31 @@ interface RulesPageProps {
 
 const RulesPage: React.FC<RulesPageProps> = ({ initialTab, onBack, isDarkMode, toggleDarkMode }) => {
   const [activeTab, setActiveTab] = React.useState(initialTab);
+  const [selectedOptionForTab, setSelectedOptionForTab] = React.useState<string | null>(null);
 
   const tabs = [
     { id: 'h4Initial', label: 'H4 Rules', description: 'H4 Candle Validation Rules' },
     { id: 'dailyRules', label: 'Daily Rules', description: 'Daily Timeframe Rules' },
     { id: 'h1Confirmation', label: 'H1 Rules', description: 'H1 Confirmation Rules' }
   ];
+
+  // Initialize selectedOptionForTab when activeTab changes for H4 and H1 tabs
+  React.useEffect(() => {
+    if (activeTab === 'h4Initial' || activeTab === 'h1Confirmation') {
+      const activeStep = steps[activeTab];
+      if (activeStep && activeStep.options && activeStep.options.length > 0) {
+        setSelectedOptionForTab(activeStep.options[0].id);
+      } else {
+        setSelectedOptionForTab(null);
+      }
+    } else {
+      setSelectedOptionForTab(null);
+    }
+  }, [activeTab]);
+
+  const handleOptionSelect = (optionId: string) => {
+    setSelectedOptionForTab(optionId);
+  };
 
   const activeStep = steps[activeTab];
 
@@ -107,7 +127,79 @@ const RulesPage: React.FC<RulesPageProps> = ({ initialTab, onBack, isDarkMode, t
 
         {hasDynamicRules && (
           <div className="space-y-8">
-            {optionsForIteration.map((option) => (
+            {/* Show dropdown for H4 and H1 tabs */}
+            {(activeTab === 'h4Initial' || activeTab === 'h1Confirmation') && (
+              <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-6">
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Select Option to View Rules
+                  </label>
+                  <Dropdown
+                    options={activeStep.options}
+                    selectedOption={selectedOptionForTab}
+                    onSelect={handleOptionSelect}
+                    placeholder="Choose an option..."
+                  />
+                </div>
+
+                {selectedOptionForTab && (
+                  <div>
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">
+                      {activeStep.options.find(opt => opt.id === selectedOptionForTab)?.label} Rules
+                    </h2>
+                    
+                    {/* Show rules for both trade directions if applicable */}
+                    {(['buy', 'sell'] as TradeDirection[]).map((direction) => {
+                      const rules = activeStep.getRules!(selectedOptionForTab, direction);
+                      
+                      if (rules.length === 0) return null;
+                      
+                      // Check if rules are different for buy vs sell
+                      const buyRules = activeStep.getRules!(selectedOptionForTab, 'buy');
+                      const sellRules = activeStep.getRules!(selectedOptionForTab, 'sell');
+                      const rulesAreDifferent = JSON.stringify(buyRules) !== JSON.stringify(sellRules);
+                      
+                      // Prevent duplication: if rules are the same and this is 'sell', skip rendering
+                      if (!rulesAreDifferent && direction === 'sell') {
+                        return null;
+                      }
+                      
+                      return (
+                        <div key={`${selectedOptionForTab}-${direction}`} className="mb-6 last:mb-0">
+                          {rulesAreDifferent && (
+                            <div className="flex items-center mb-3">
+                              {direction === 'buy' ? (
+                                <TrendingUp size={18} className="text-green-600 dark:text-green-400 mr-2" />
+                              ) : (
+                                <TrendingDown size={18} className="text-red-600 dark:text-red-400 mr-2" />
+                              )}
+                              <h3 className={`text-lg font-semibold ${
+                                direction === 'buy' 
+                                  ? 'text-green-800 dark:text-green-200' 
+                                  : 'text-red-800 dark:text-red-200'
+                              }`}>
+                                {direction.charAt(0).toUpperCase() + direction.slice(1)} Setup Rules
+                              </h3>
+                            </div>
+                          )}
+                          
+                          <ul className="space-y-0">
+                            {rules.map((rule, index) => (
+                              <RuleDisplay key={`${rule.id}-${direction}`} rule={rule} ruleIndex={index} />
+                            ))}
+                          </ul>
+                          
+                          {rulesAreDifferent && direction === 'buy' && <div className="border-t border-gray-200 dark:border-gray-700 mt-6 pt-6"></div>}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Show all options for Daily Rules tab (preserve existing behavior) */}
+            {activeTab === 'dailyRules' && optionsForIteration.map((option) => (
               <div key={option.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-6">
                 <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">{option.label}</h2>
                 
