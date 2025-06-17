@@ -45,6 +45,12 @@ const RulesPage: React.FC<RulesPageProps> = ({ initialTab, onBack, isDarkMode, t
   const hasStaticRules = activeStep.rules && activeStep.rules.length > 0;
   const hasDynamicRules = activeStep.getRules && typeof activeStep.getRules === 'function';
 
+  // Get options for iteration - handle dynamic options for dailyRules
+  let optionsForIteration = activeStep.options;
+  if (activeStep.getOptions && activeTab === 'dailyRules') {
+    optionsForIteration = activeStep.getOptions(null, 'buy', {});
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-6xl mx-auto p-6">
@@ -101,7 +107,7 @@ const RulesPage: React.FC<RulesPageProps> = ({ initialTab, onBack, isDarkMode, t
 
         {hasDynamicRules && (
           <div className="space-y-8">
-            {activeStep.options.map((option) => (
+            {optionsForIteration.map((option) => (
               <div key={option.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-6">
                 <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">{option.label}</h2>
                 
@@ -115,6 +121,11 @@ const RulesPage: React.FC<RulesPageProps> = ({ initialTab, onBack, isDarkMode, t
                   const buyRules = activeStep.getRules!(option.id, 'buy');
                   const sellRules = activeStep.getRules!(option.id, 'sell');
                   const rulesAreDifferent = JSON.stringify(buyRules) !== JSON.stringify(sellRules);
+                  
+                  // Prevent duplication: if rules are the same and this is 'sell', skip rendering
+                  if (!rulesAreDifferent && direction === 'sell') {
+                    return null;
+                  }
                   
                   return (
                     <div key={`${option.id}-${direction}`} className="mb-6 last:mb-0">
@@ -141,9 +152,7 @@ const RulesPage: React.FC<RulesPageProps> = ({ initialTab, onBack, isDarkMode, t
                         ))}
                       </ul>
                       
-                      {/* Only show one set of rules if they're the same for both directions */}
-                      {!rulesAreDifferent && direction === 'buy'} 
-                      {rulesAreDifferent && direction === 'sell' && <div className="border-t border-gray-200 dark:border-gray-700 mt-6 pt-6"></div>}
+                      {rulesAreDifferent && direction === 'buy' && <div className="border-t border-gray-200 dark:border-gray-700 mt-6 pt-6"></div>}
                     </div>
                   );
                 })}
