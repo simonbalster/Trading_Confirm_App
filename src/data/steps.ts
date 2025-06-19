@@ -574,7 +574,12 @@ const steps: Record<string, Step> = {
               description: 'Previous day MUST be the same direction close.',
               exceptions: ['Can be opposite daily candle close if H4 Engulf is supported by Inside bar structure'],
               allowNA: true,
-              images: []
+              images: [
+                {
+                  url:'https://res.cloudinary.com/dnfpmva9e/image/upload/v1750334773/Picture3_n3dtgg.jpg',
+                  alt: 'Engulf candle supported by Inside bar structure UMXN -12/06/25 '
+                }
+              ]
             },
             {
               id: 'rule3',
