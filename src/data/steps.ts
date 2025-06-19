@@ -801,7 +801,7 @@ const steps: Record<string, Step> = {
                ]
             },
             {
-              id: 'rule5',
+              id: 'rule6',
               description: 'Previous day opposite open wick isnt coming off SCMSB after NH/NL against you on ANY feed.',
               exceptions: ['NO EXCEPTION'],
               images: [
@@ -812,7 +812,7 @@ const steps: Record<string, Step> = {
                ]
             },
             {
-              id: 'rule6',
+              id: 'rule7',
               description: 'Previous day opposite candle isnt coming off "LQW directly after SCMSB after NH/NL" against you',
               exceptions: ['NO EXCEPTION'],
               images: [
@@ -823,7 +823,7 @@ const steps: Record<string, Step> = {
               ]
             },
             {
-              id: 'rule7',
+              id: 'rule8',
               description: 'Current day candle CAN NOT be a LQW forming against trade direction',
               images: [
                 {
@@ -833,7 +833,7 @@ const steps: Record<string, Step> = {
               ]
             },
             {
-              id: 'rule8',
+              id: 'rule9',
               description: 'Current day candle CAN NOT be SCMSB forming against trade direction',
               images: [
                 {
