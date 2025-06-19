@@ -52,7 +52,7 @@ const steps: Record<string, Step> = {
           return [
             {
               id: 'rule1',
-              description: 'Closing into H4 Empty Space or NON MSB STRUCTURE.',
+              description: 'Closing into H4 Empty Space or NON MSB IB STRUCTURE.',
               exceptions: [
                 'Manip Inside Bar is closing into H1 Empty Space…AND..your H4 NH/NL against didnt do a NH/NL manip pattern',
                 'Manip Inside Bar is closing into H1 non msb structure…AND..your H4 NH/NL against didnt do a NH/NL manip pattern'
