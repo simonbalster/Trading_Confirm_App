@@ -462,6 +462,7 @@ const steps: Record<string, Step> = {
           ];
         case 'LQW':
           return [
+            {
             id: 'rule1',
               description: 'Closing into H4 Empty Space or NON MSB IB STRUCTURE.',
               outcomes: [
