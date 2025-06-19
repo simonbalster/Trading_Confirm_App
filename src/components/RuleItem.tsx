@@ -1,6 +1,7 @@
 import React from 'react';
 import { Rule, RuleStatus } from '../types';
 import { Check, X, HelpCircle, Circle, Image as ImageIcon, Minus } from 'lucide-react';
+import { isRuleApplicable } from '../utils/validation';
 
 interface RuleItemProps {
   rule: Rule;
@@ -10,6 +11,8 @@ interface RuleItemProps {
   singleSelection?: boolean;
   currentStepId?: string;
   selectedOptionId?: string | null;
+  allRuleAnswers?: Record<string, RuleStatus>;
+  allRules?: Rule[];
 }
 
 const RuleItem: React.FC<RuleItemProps> = ({ 
@@ -19,10 +22,15 @@ const RuleItem: React.FC<RuleItemProps> = ({
   isSelected = false,
   singleSelection = false,
   currentStepId,
-  selectedOptionId
+  selectedOptionId,
+  allRuleAnswers = {},
+  allRules = []
 }) => {
   const [showException, setShowException] = React.useState(false);
   const [showImages, setShowImages] = React.useState(false);
+
+  // Check if this rule is applicable based on its condition
+  const ruleIsApplicable = isRuleApplicable(rule, allRules, allRuleAnswers);
 
   // Check if this is the specific exception rule (ENGULFMSB rule2)
   const isSpecificExceptionRule = currentStepId === 'h4Initial' && 
@@ -30,6 +38,10 @@ const RuleItem: React.FC<RuleItemProps> = ({
                                   rule.id === 'rule2';
 
   const getButtonStyle = (status: RuleStatus) => {
+    if (!ruleIsApplicable) {
+      return 'bg-gray-100 dark:bg-gray-700 text-gray-300 dark:text-gray-600 border-2 border-transparent cursor-not-allowed';
+    }
+
     if (singleSelection) {
       if (isSelected && status === 'satisfied') {
         return 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 hover:bg-green-200 dark:hover:bg-green-900/50 border-2 border-green-400 dark:border-green-500';
@@ -72,6 +84,8 @@ const RuleItem: React.FC<RuleItemProps> = ({
   };
 
   const handleMainToggle = () => {
+    if (!ruleIsApplicable) return;
+
     if (singleSelection) {
       onStatusChange(rule.id, 'satisfied');
     } else {
@@ -82,6 +96,8 @@ const RuleItem: React.FC<RuleItemProps> = ({
   };
 
   const handleNAToggle = () => {
+    if (!ruleIsApplicable) return;
+
     // Toggle between na and not_satisfied
     const newStatus = ruleStatus === 'na' ? 'not_satisfied' : 'na';
     onStatusChange(rule.id, newStatus);
@@ -99,6 +115,10 @@ const RuleItem: React.FC<RuleItemProps> = ({
 
   // Get the appropriate styling for the container based on rule status and exception rule
   const getContainerStyling = () => {
+    if (!ruleIsApplicable) {
+      return 'border-gray-200 dark:border-gray-700 opacity-50';
+    }
+
     if (singleSelection && isSelected) {
       return 'border-blue-300 dark:border-blue-600 bg-blue-50 dark:bg-blue-900/20';
     } else if (ruleStatus === 'na') {
@@ -114,6 +134,10 @@ const RuleItem: React.FC<RuleItemProps> = ({
 
   // Get the appropriate text color based on rule status and exception rule
   const getTextColor = () => {
+    if (!ruleIsApplicable) {
+      return 'text-gray-400 dark:text-gray-600';
+    }
+
     if (singleSelection && isSelected) {
       return 'text-blue-800 dark:text-blue-200';
     } else if (ruleStatus === 'na') {
@@ -129,6 +153,10 @@ const RuleItem: React.FC<RuleItemProps> = ({
 
   // Get the appropriate button styling for the N/A/EXCP button
   const getNAButtonStyling = () => {
+    if (!ruleIsApplicable) {
+      return 'bg-gray-200 dark:bg-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed';
+    }
+
     if (ruleStatus === 'na') {
       if (isSpecificExceptionRule) {
         return 'bg-green-500 dark:bg-green-600 text-white hover:bg-green-600 dark:hover:bg-green-700 shadow-sm';
@@ -163,6 +191,21 @@ const RuleItem: React.FC<RuleItemProps> = ({
 
   return (
     <div className={`flex flex-col mb-3 border rounded-lg p-3 bg-white dark:bg-gray-800 shadow-sm transition-all duration-200 hover:shadow-md ${getContainerStyling()}`}>
+      {/* Conditional rule indicator */}
+      {rule.condition && (
+        <div className="mb-2 text-xs text-gray-500 dark:text-gray-400 italic">
+          {ruleIsApplicable ? (
+            <span className="text-blue-600 dark:text-blue-400">
+              ✓ Conditional rule is active (depends on rule {rule.condition.dependsOnRuleId})
+            </span>
+          ) : (
+            <span className="text-gray-400 dark:text-gray-600">
+              ⚬ Conditional rule (inactive - depends on rule {rule.condition.dependsOnRuleId})
+            </span>
+          )}
+        </div>
+      )}
+
       <div className="flex items-start justify-between">
         <div className="flex items-start flex-1">
           <div className="flex items-center mr-3">
@@ -171,7 +214,7 @@ const RuleItem: React.FC<RuleItemProps> = ({
                 ruleStatus === 'na' ? 'opacity-50' : ''
               }`}
               onClick={handleMainToggle}
-              disabled={ruleStatus === 'na'}
+              disabled={ruleStatus === 'na' || !ruleIsApplicable}
               aria-label={
                 singleSelection 
                   ? (isSelected ? "Rule is selected" : "Select this rule")
@@ -185,6 +228,7 @@ const RuleItem: React.FC<RuleItemProps> = ({
               <button
                 className={`ml-2 px-2 py-1 text-xs rounded-md transition-all duration-200 font-medium ${getNAButtonStyling()}`}
                 onClick={handleNAToggle}
+                disabled={!ruleIsApplicable}
                 aria-label={buttonInfo.ariaLabel}
               >
                 {buttonInfo.text}
@@ -202,6 +246,7 @@ const RuleItem: React.FC<RuleItemProps> = ({
                 <button
                   onClick={() => setShowException(!showException)}
                   className="text-blue-600 dark:text-blue-400 text-xs flex items-center hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
+                  disabled={!ruleIsApplicable}
                 >
                   <HelpCircle size={12} className="mr-1" />
                   {showException ? 'Hide exception' : 'Show exception'}
@@ -212,6 +257,7 @@ const RuleItem: React.FC<RuleItemProps> = ({
                 <button
                   onClick={() => setShowImages(!showImages)}
                   className="text-purple-600 dark:text-purple-400 text-xs flex items-center hover:text-purple-800 dark:hover:text-purple-300 transition-colors"
+                  disabled={!ruleIsApplicable}
                 >
                   <ImageIcon size={12} className="mr-1" />
                   {showImages ? 'Hide examples' : `Show examples (${rule.images.length})`}

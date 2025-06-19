@@ -66,8 +66,12 @@ const steps: Record<string, Step> = {
             },
             {
               id: 'rule1a',
-              description: `The NON MSB IB structure your H4 taps into must be immediatley after a structure candle.`,
+              description: 'The NON MSB IB structure your H4 taps into must be immediately after a structure candle.',
               allowNA: true,
+              condition: {
+                dependsOnRuleId: 'rule1',
+                checkParentDescription: 'NON MSB IB STRUCTURE'
+              },
               images: [
                 {
                   url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1750328103/Picture1_gak4ww.jpg',
@@ -75,7 +79,7 @@ const steps: Record<string, Step> = {
                 },
                 {
                   url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1750328102/Picture2_ij92qg.jpg',
-                  alt: 'Structure candle immediatly before NON MSB IB'
+                  alt: 'Structure candle immediately before NON MSB IB'
                 }
               ]
             },

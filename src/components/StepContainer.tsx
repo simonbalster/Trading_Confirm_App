@@ -250,6 +250,8 @@ const StepContainer: React.FC<StepContainerProps> = ({
                 singleSelection={isSingleSelectionStep}
                 currentStepId={step.id}
                 selectedOptionId={stepState.selectedOption}
+                allRuleAnswers={ruleAnswers}
+                allRules={currentRules}
               />
             ))}
           </div>

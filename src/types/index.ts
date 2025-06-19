@@ -7,12 +7,18 @@ export type RuleStatus = 'satisfied' | 'not_satisfied' | 'na';
 
 export type TradeDirection = 'buy' | 'sell';
 
+export interface RuleCondition {
+  dependsOnRuleId: string;
+  checkParentDescription?: string;
+}
+
 export interface Rule {
   id: string;
   description: string;
   exceptions?: string[];
   images?: ImageInfo[];
   allowNA?: boolean;
+  condition?: RuleCondition;
 }
 
 export interface Option {
