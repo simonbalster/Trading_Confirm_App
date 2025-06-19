@@ -779,7 +779,7 @@ const steps: Record<string, Step> = {
                 }
               ]
             },
-            
+            {
               id: 'rule3',
               description: 'Previous day opposite can\'t be IB or NON MSB engulf in Daily empty space',
               images: []
