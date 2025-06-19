@@ -54,13 +54,28 @@ const steps: Record<string, Step> = {
               id: 'rule1',
               description: 'Closing into H4 Empty Space or NON MSB IB STRUCTURE.',
               exceptions: [
-                'Manip Inside Bar is closing into H1 Empty Space…AND..your H4 NH/NL against didnt do a NH/NL manip pattern',
-                'Manip Inside Bar is closing into H1 non msb structure…AND..your H4 NH/NL against didnt do a NH/NL manip pattern'
+                'Manip Inside Bar is closing into H1 Empty Space AND your H4 NH/NL against didnt do a NH/NL manip pattern',
+                'Manip Inside Bar is closing into H1 non msb structure AND your H4 NH/NL against didnt do a NH/NL manip pattern'
               ],
               images: [
                 {
                   url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1749205345/emptyspace_zie9ad.png',
                   alt: 'Example of H4 Manip Inside Bar closing into H4 Empty Space or Non MSB Structure'
+                }
+              ]
+            },
+            {
+              id: 'rule1a',
+              description: `The NON MSB IB structure your H4 taps into must be immediatley after a structure candle.`,
+              allowNA: true,
+              images: [
+                {
+                  url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1750328103/Picture1_gak4ww.jpg',
+                  alt: 'Structure candle directly before NON MSB IB'
+                },
+                {
+                  url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1https://res.cloudinary.com/dnfpmva9e/image/upload/v1750328102/Picture2_ij92qg.jpg',
+                  alt: 'Structure candle immediatly before NON MSB IB'
                 }
               ]
             },
