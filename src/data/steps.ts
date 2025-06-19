@@ -71,7 +71,6 @@ const steps: Record<string, Step> = {
             {
               id: 'rule1a',
               description: 'The NON MSB IB structure your H4 taps into must be immediately after a structure candle.',
-              allowNA: true,
               condition: {
                 dependsOnRuleId: 'rule1',
                 checkParentOutcomeId: 'nonMsbIbStructure'
