@@ -213,7 +213,7 @@ const steps: Record<string, Step> = {
         
         case 'MANIPNONMSBENGULF':
           return [
-{
+              {
               id: 'rule1',
               description: 'Closing into H4 Empty Space or NON MSB IB STRUCTURE.',
               outcomes: [
@@ -221,8 +221,8 @@ const steps: Record<string, Step> = {
                 { id: 'nonMsbIbStructure', label: 'NON MSB IB STRUCTURE' }
               ],
               exceptions: [
-                'Manip Inside Bar is closing into H1 Empty Space AND your H4 NH/NL against didnt do a NH/NL manip pattern',
-                'Manip Inside Bar is closing into H1 non msb structure AND your H4 NH/NL against didnt do a NH/NL manip pattern'
+                'Manip NON MSB Engulf is closing into H1 Empty Space AND your H4 NH/NL against didnt do a NH/NL manip pattern',
+                'Manip NON MSB Engulf is closing into H1 non msb structure AND your H4 NH/NL against didnt do a NH/NL manip pattern'
               ],
               images: [
                 {
@@ -369,15 +369,37 @@ const steps: Record<string, Step> = {
           return [
             {
               id: 'rule1',
-              description: 'Closing into H4 Empty Space or NON MSB structure',
+              description: 'Closing into H4 Empty Space or NON MSB IB STRUCTURE.',
+              outcomes: [
+                { id: 'emptySpace', label: 'Empty Space' },
+                { id: 'nonMsbIbStructure', label: 'NON MSB IB STRUCTURE' }
+              ],
               exceptions: [
-                'Single candle is closing into H1 Empty Space…AND..your h4 NH/NL against didnt do a NH/NL manip pattern',
-                'Single candle is closing into H1 non msb structure…AND..your h4 NH/NL against didnt do a NH/NL manip pattern'
+                'Single candle is closing into H1 Empty Space AND your H4 NH/NL against didnt do a NH/NL manip pattern',
+                'Single candle is closing into H1 non msb structure AND your H4 NH/NL against didnt do a NH/NL manip pattern'
               ],
               images: [
                 {
                   url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1749225010/Picture28_khgocr.png',
                   alt: 'Example of single candle closing into H4 empty space and NON MSB structure'
+                }
+              ]
+            },
+            {
+              id: 'rule1a',
+              description: 'The NON MSB IB structure your H4 taps into must be immediately after a structure candle.',
+              condition: {
+                dependsOnRuleId: 'rule1',
+                checkParentOutcomeId: 'nonMsbIbStructure'
+              },
+              images: [
+                {
+                  url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1750328103/Picture1_gak4ww.jpg',
+                  alt: 'Structure candle directly before NON MSB IB'
+                },
+                {
+                  url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1750328102/Picture2_ij92qg.jpg',
+                  alt: 'Structure candle immediately before NON MSB IB'
                 }
               ]
             },
