@@ -779,14 +779,29 @@ const steps: Record<string, Step> = {
                 }
               ]
             },
-            {
+            
               id: 'rule3',
-              description: 'Previous day opposite isnt SCMSB after a NH/NL.',
-              exceptions: ['The current week is same direction over previous weeks high/low.'],
+              description: 'Previous day opposite can\'t be IB or NON MSB engulf in Daily empty space',
               images: []
             },
             {
               id: 'rule4',
+              description: 'Previous day opposite isnt SCMSB after a NH/NL.',
+              images: []
+            },
+            {
+              id: 'rule5',
+              description: 'Previous day opposite direction cant be LQW that manipped most recent IB/NON MSB Engulf H/L',
+              exceptions: ['NO EXCEPTION'],
+              images: [
+                {
+                  url:'https://res.cloudinary.com/dnfpmva9e/image/upload/v1750339890/Picture6_kaka2m.jpg',
+                  alt:'LQW that manipped most recent IB High'
+                }
+               ]
+            },
+            {
+              id: 'rule5',
               description: 'Previous day opposite open wick isnt coming off SCMSB after NH/NL against you on ANY feed.',
               exceptions: ['NO EXCEPTION'],
               images: [
@@ -797,7 +812,7 @@ const steps: Record<string, Step> = {
                ]
             },
             {
-              id: 'rule5',
+              id: 'rule6',
               description: 'Previous day opposite candle isnt coming off "LQW directly after SCMSB after NH/NL" against you',
               exceptions: ['NO EXCEPTION'],
               images: [
@@ -808,7 +823,7 @@ const steps: Record<string, Step> = {
               ]
             },
             {
-              id: 'rule6',
+              id: 'rule7',
               description: 'Current day candle CAN NOT be a LQW forming against trade direction',
               images: [
                 {
@@ -818,7 +833,7 @@ const steps: Record<string, Step> = {
               ]
             },
             {
-              id: 'rule7',
+              id: 'rule8',
               description: 'Current day candle CAN NOT be SCMSB forming against trade direction',
               images: [
                 {
