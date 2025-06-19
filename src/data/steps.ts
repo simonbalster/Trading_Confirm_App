@@ -213,18 +213,39 @@ const steps: Record<string, Step> = {
         
         case 'MANIPNONMSBENGULF':
           return [
-            {
+{
               id: 'rule1',
-              description: 'Closing into H4 Empty Space or NON MSB structure.',
+              description: 'Closing into H4 Empty Space or NON MSB IB STRUCTURE.',
+              outcomes: [
+                { id: 'emptySpace', label: 'Empty Space' },
+                { id: 'nonMsbIbStructure', label: 'NON MSB IB STRUCTURE' }
+              ],
               exceptions: [
-                'Manip Non MSB Engulf is closing into H1 Empty Space…AND..your H4 NH/NL against didnt do a NH/NL manip pattern...OR',
-                'Manip Non MSB Engulf is closing into H1 non msb structure…AND..your H4 NH/NL against didnt do a NH/NL manip pattern'
-                ],
-                
+                'Manip Inside Bar is closing into H1 Empty Space AND your H4 NH/NL against didnt do a NH/NL manip pattern',
+                'Manip Inside Bar is closing into H1 non msb structure AND your H4 NH/NL against didnt do a NH/NL manip pattern'
+              ],
               images: [
                 {
                   url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1749220716/Picture13_gr6bff.png',
                   alt: 'H4 Manip Non MSB Engulf closing & tapping into H4 Empty Space…OR…NON MSB STRUCTURE'
+                }
+              ]
+            },
+            {
+              id: 'rule1a',
+              description: 'The NON MSB IB structure your H4 taps into must be immediately after a structure candle.',
+              condition: {
+                dependsOnRuleId: 'rule1',
+                checkParentOutcomeId: 'nonMsbIbStructure'
+              },
+              images: [
+                {
+                  url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1750328103/Picture1_gak4ww.jpg',
+                  alt: 'Structure candle directly before NON MSB IB'
+                },
+                {
+                  url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1750328102/Picture2_ij92qg.jpg',
+                  alt: 'Structure candle immediately before NON MSB IB'
                 }
               ]
             },
