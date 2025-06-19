@@ -212,7 +212,7 @@ const RuleItem: React.FC<RuleItemProps> = ({
             </span>
           ) : (
             <span className="text-gray-400 dark:text-gray-600">
-              ⚬ Conditional rule (inactive - depends on rule {rule.condition.dependsOnRuleId})
+              ⚬ Conditional rule (inactive - depends on above {rule.condition.dependsOnRuleId})
             </span>
           )}
         </div>
