@@ -1,6 +1,6 @@
 import React from 'react';
 import { Rule } from '../types';
-import { HelpCircle, ImageIcon } from 'lucide-react';
+import { HelpCircle, ImageIcon, AlertTriangle, ChevronRight } from 'lucide-react';
 
 interface RuleDisplayProps {
   rule: Rule;
@@ -28,9 +28,42 @@ const RuleDisplay: React.FC<RuleDisplayProps> = ({ rule, ruleIndex }) => {
           {ruleIndex + 1}
         </span>
         <div className="flex-1">
+          {/* Conditional rule indicator */}
+          {rule.condition && (
+            <div className="mb-3 p-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-lg">
+              <div className="flex items-center text-amber-700 dark:text-amber-300">
+                <AlertTriangle size={14} className="mr-2 flex-shrink-0" />
+                <span className="text-xs font-medium">
+                  Conditional Rule - Only applies when rule "{rule.condition.dependsOnRuleId}" is satisfied
+                  {rule.condition.checkParentOutcomeId && ` and outcome "${rule.condition.checkParentOutcomeId}" is selected`}
+                  {rule.condition.checkParentDescription && ` and contains "${rule.condition.checkParentDescription}"`}
+                </span>
+              </div>
+            </div>
+          )}
+
           <p className="text-gray-800 dark:text-gray-200 font-medium leading-relaxed">
             {renderDescription(rule.description)}
           </p>
+
+          {/* Rule Outcomes */}
+          {rule.outcomes && rule.outcomes.length > 0 && (
+            <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg">
+              <div className="flex items-center mb-2">
+                <ChevronRight size={14} className="text-blue-600 dark:text-blue-400 mr-1" />
+                <span className="text-sm font-medium text-blue-800 dark:text-blue-200">
+                  Rule Outcomes (select one when rule applies):
+                </span>
+              </div>
+              <ul className="space-y-1 ml-5">
+                {rule.outcomes.map((outcome, index) => (
+                  <li key={outcome.id} className="text-sm text-blue-700 dark:text-blue-300">
+                    <span className="font-medium">{index + 1}.</span> {outcome.label}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           
           {rule.allowNA && (
             <div className="mt-2">
