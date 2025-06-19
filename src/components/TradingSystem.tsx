@@ -19,7 +19,7 @@ const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMod
     return Object.fromEntries(
       Object.values(steps).map(step => [
         step.id, 
-        { selectedOption: null, validationResult: null, ruleAnswers: {} }
+        { selectedOption: null, validationResult: null, ruleAnswers: {}, selectedRuleOutcomes: {} }
       ])
     );
   });
@@ -61,7 +61,7 @@ const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMod
       Object.fromEntries(
         Object.values(steps).map(step => [
           step.id,
-          { selectedOption: null, validationResult: null, ruleAnswers: {} }
+          { selectedOption: null, validationResult: null, ruleAnswers: {}, selectedRuleOutcomes: {} }
         ])
       )
     );
@@ -74,7 +74,7 @@ const TradingSystem: React.FC<TradingSystemProps> = ({ isDarkMode, toggleDarkMod
       Object.fromEntries(
         Object.values(steps).map(step => [
           step.id,
-          { selectedOption: null, validationResult: null, ruleAnswers: {} }
+          { selectedOption: null, validationResult: null, ruleAnswers: {}, selectedRuleOutcomes: {} }
         ])
       )
     );

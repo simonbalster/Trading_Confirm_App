@@ -7,9 +7,15 @@ export type RuleStatus = 'satisfied' | 'not_satisfied' | 'na';
 
 export type TradeDirection = 'buy' | 'sell';
 
+export interface RuleOutcome {
+  id: string;
+  label: string;
+}
+
 export interface RuleCondition {
   dependsOnRuleId: string;
   checkParentDescription?: string;
+  checkParentOutcomeId?: string;
 }
 
 export interface Rule {
@@ -19,6 +25,7 @@ export interface Rule {
   images?: ImageInfo[];
   allowNA?: boolean;
   condition?: RuleCondition;
+  outcomes?: RuleOutcome[];
 }
 
 export interface Option {
@@ -54,6 +61,7 @@ export interface StepState {
   selectedOption: string | null;
   validationResult: ValidationResult | null;
   ruleAnswers?: Record<string, RuleStatus>;
+  selectedRuleOutcomes?: Record<string, string | null>;
 }
 
 export type StepsState = Record<string, StepState>;

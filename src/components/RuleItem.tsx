@@ -13,6 +13,8 @@ interface RuleItemProps {
   selectedOptionId?: string | null;
   allRuleAnswers?: Record<string, RuleStatus>;
   allRules?: Rule[];
+  selectedRuleOutcomes?: Record<string, string | null>;
+  onRuleOutcomeChange?: (ruleId: string, outcomeId: string | null) => void;
 }
 
 const RuleItem: React.FC<RuleItemProps> = ({ 
@@ -24,13 +26,15 @@ const RuleItem: React.FC<RuleItemProps> = ({
   currentStepId,
   selectedOptionId,
   allRuleAnswers = {},
-  allRules = []
+  allRules = [],
+  selectedRuleOutcomes = {},
+  onRuleOutcomeChange
 }) => {
   const [showException, setShowException] = React.useState(false);
   const [showImages, setShowImages] = React.useState(false);
 
   // Check if this rule is applicable based on its condition
-  const ruleIsApplicable = isRuleApplicable(rule, allRules, allRuleAnswers);
+  const ruleIsApplicable = isRuleApplicable(rule, allRules, allRuleAnswers, selectedRuleOutcomes);
 
   // Check if this is the specific exception rule (ENGULFMSB rule2)
   const isSpecificExceptionRule = currentStepId === 'h4Initial' && 
@@ -101,6 +105,14 @@ const RuleItem: React.FC<RuleItemProps> = ({
     // Toggle between na and not_satisfied
     const newStatus = ruleStatus === 'na' ? 'not_satisfied' : 'na';
     onStatusChange(rule.id, newStatus);
+  };
+
+  const handleOutcomeChange = (outcomeId: string) => {
+    if (onRuleOutcomeChange) {
+      // If the same outcome is selected, deselect it
+      const newOutcomeId = selectedRuleOutcomes[rule.id] === outcomeId ? null : outcomeId;
+      onRuleOutcomeChange(rule.id, newOutcomeId);
+    }
   };
 
   // Function to render description with proper line breaks
@@ -240,6 +252,32 @@ const RuleItem: React.FC<RuleItemProps> = ({
             <p className={`font-medium ${getTextColor()}`}>
               {renderDescription(rule.description)}
             </p>
+
+            {/* Rule Outcomes Selection */}
+            {rule.outcomes && rule.outcomes.length > 0 && ruleStatus === 'satisfied' && ruleIsApplicable && (
+              <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg">
+                <p className="text-sm font-medium text-blue-800 dark:text-blue-200 mb-2">
+                  Select which applies:
+                </p>
+                <div className="space-y-2">
+                  {rule.outcomes.map((outcome) => (
+                    <label key={outcome.id} className="flex items-center cursor-pointer">
+                      <input
+                        type="radio"
+                        name={`outcome-${rule.id}`}
+                        value={outcome.id}
+                        checked={selectedRuleOutcomes[rule.id] === outcome.id}
+                        onChange={() => handleOutcomeChange(outcome.id)}
+                        className="mr-2 text-blue-600 dark:text-blue-400"
+                      />
+                      <span className="text-sm text-blue-700 dark:text-blue-300">
+                        {outcome.label}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
             
             <div className="flex flex-wrap gap-2 mt-2">
               {rule.exceptions && rule.exceptions.length > 0 && (

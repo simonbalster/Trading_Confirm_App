@@ -30,6 +30,7 @@ const StepContainer: React.FC<StepContainerProps> = ({
 }) => {
   const [ruleAnswers, setRuleAnswers] = React.useState<Record<string, RuleStatus>>({});
   const [selectedRuleId, setSelectedRuleId] = React.useState<string | null>(null);
+  const [selectedRuleOutcomes, setSelectedRuleOutcomes] = React.useState<Record<string, string | null>>({});
   
   const currentRules = React.useMemo(() => {
     if (step.getRules && stepState.selectedOption) {
@@ -66,6 +67,9 @@ const StepContainer: React.FC<StepContainerProps> = ({
       );
       setSelectedRuleId(null);
     }
+    
+    // Initialize selectedRuleOutcomes
+    setSelectedRuleOutcomes({});
   }, [currentRules, isSingleSelectionStep]);
 
   const handleOptionSelect = (optionId: string) => {
@@ -73,7 +77,8 @@ const StepContainer: React.FC<StepContainerProps> = ({
       ...stepState,
       selectedOption: optionId,
       validationResult: null,
-      ruleAnswers: {}
+      ruleAnswers: {},
+      selectedRuleOutcomes: {}
     };
     onUpdateState(step.id, newState);
   };
@@ -103,6 +108,21 @@ const StepContainer: React.FC<StepContainerProps> = ({
     }
     
     setRuleAnswers(newRuleAnswers);
+    
+    // Clear outcome selection if rule is no longer satisfied
+    if (status !== 'satisfied' && selectedRuleOutcomes[ruleId]) {
+      setSelectedRuleOutcomes(prev => ({
+        ...prev,
+        [ruleId]: null
+      }));
+    }
+  };
+
+  const handleRuleOutcomeChange = (ruleId: string, outcomeId: string | null) => {
+    setSelectedRuleOutcomes(prev => ({
+      ...prev,
+      [ruleId]: outcomeId
+    }));
   };
 
   const handleValidate = () => {
@@ -147,14 +167,16 @@ const StepContainer: React.FC<StepContainerProps> = ({
         stepState.selectedOption,
         currentRules,
         ruleAnswers,
-        step.title
+        step.title,
+        selectedRuleOutcomes
       );
     }
 
     const newState = {
       ...stepState,
       validationResult,
-      ruleAnswers
+      ruleAnswers,
+      selectedRuleOutcomes
     };
     onUpdateState(step.id, newState);
 
@@ -252,6 +274,8 @@ const StepContainer: React.FC<StepContainerProps> = ({
                 selectedOptionId={stepState.selectedOption}
                 allRuleAnswers={ruleAnswers}
                 allRules={currentRules}
+                selectedRuleOutcomes={selectedRuleOutcomes}
+                onRuleOutcomeChange={handleRuleOutcomeChange}
               />
             ))}
           </div>

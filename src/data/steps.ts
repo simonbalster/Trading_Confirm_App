@@ -53,6 +53,10 @@ const steps: Record<string, Step> = {
             {
               id: 'rule1',
               description: 'Closing into H4 Empty Space or NON MSB IB STRUCTURE.',
+              outcomes: [
+                { id: 'emptySpace', label: 'Empty Space' },
+                { id: 'nonMsbIbStructure', label: 'NON MSB IB STRUCTURE' }
+              ],
               exceptions: [
                 'Manip Inside Bar is closing into H1 Empty Space AND your H4 NH/NL against didnt do a NH/NL manip pattern',
                 'Manip Inside Bar is closing into H1 non msb structure AND your H4 NH/NL against didnt do a NH/NL manip pattern'
@@ -70,7 +74,7 @@ const steps: Record<string, Step> = {
               allowNA: true,
               condition: {
                 dependsOnRuleId: 'rule1',
-                checkParentDescription: 'NON MSB IB STRUCTURE'
+                checkParentOutcomeId: 'nonMsbIbStructure'
               },
               images: [
                 {

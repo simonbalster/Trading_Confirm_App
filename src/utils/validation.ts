@@ -1,16 +1,29 @@
 import { Rule, ValidationResult, RuleStatus } from '../types';
 
-const isRuleApplicable = (rule: Rule, allRules: Rule[], allRuleAnswers: Record<string, RuleStatus>): boolean => {
+const isRuleApplicable = (
+  rule: Rule, 
+  allRules: Rule[], 
+  allRuleAnswers: Record<string, RuleStatus>,
+  allSelectedRuleOutcomes: Record<string, string | null> = {}
+): boolean => {
   if (!rule.condition) {
     return true; // Rule has no condition, so it's always applicable
   }
 
-  const { dependsOnRuleId, checkParentDescription } = rule.condition;
+  const { dependsOnRuleId, checkParentDescription, checkParentOutcomeId } = rule.condition;
   const parentRuleStatus = allRuleAnswers[dependsOnRuleId];
   
   // Parent rule must be satisfied for this rule to be applicable
   if (parentRuleStatus !== 'satisfied') {
     return false;
+  }
+
+  // If there's an outcome check, verify the parent rule has the specified outcome selected
+  if (checkParentOutcomeId) {
+    const parentSelectedOutcome = allSelectedRuleOutcomes[dependsOnRuleId];
+    if (parentSelectedOutcome !== checkParentOutcomeId) {
+      return false;
+    }
   }
 
   // If there's a description check, verify the parent rule contains the specified text
@@ -28,7 +41,8 @@ export const validateRules = (
   selectedOption: string | null,
   rules: Rule[],
   answers: Record<string, RuleStatus>,
-  stepTitle: string
+  stepTitle: string,
+  selectedRuleOutcomes: Record<string, string | null> = {}
 ): ValidationResult => {
   if (!selectedOption) {
     return {
@@ -45,11 +59,26 @@ export const validateRules = (
     }
     
     // Check if rule is applicable based on its condition
-    return isRuleApplicable(rule, rules, answers);
+    return isRuleApplicable(rule, rules, answers, selectedRuleOutcomes);
   });
   
   // Check if all applicable rules are satisfied
   const failedRules = applicableRules.filter((rule) => answers[rule.id] !== 'satisfied');
+  
+  // Check if rules with outcomes have outcomes selected when satisfied
+  const rulesWithOutcomesNotSelected = applicableRules.filter((rule) => {
+    return rule.outcomes && 
+           rule.outcomes.length > 0 && 
+           answers[rule.id] === 'satisfied' && 
+           !selectedRuleOutcomes[rule.id];
+  });
+  
+  if (rulesWithOutcomesNotSelected.length > 0) {
+    return {
+      valid: false,
+      message: `Please select an outcome for: ${rulesWithOutcomesNotSelected.map(r => r.description.split('.')[0]).join(', ')}`
+    };
+  }
   
   if (failedRules.length === 0) {
     return {
