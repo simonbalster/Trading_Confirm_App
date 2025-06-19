@@ -208,7 +208,7 @@ const RuleItem: React.FC<RuleItemProps> = ({
         <div className="mb-2 text-xs text-gray-500 dark:text-gray-400 italic">
           {ruleIsApplicable ? (
             <span className="text-blue-600 dark:text-blue-400">
-              ✓ Conditional rule is active (depends on rule {rule.condition.dependsOnRuleId})
+              ✓ Conditional rule is active (depends on above {rule.condition.dependsOnRuleId})
             </span>
           ) : (
             <span className="text-gray-400 dark:text-gray-600">
