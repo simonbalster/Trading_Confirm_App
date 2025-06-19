@@ -74,7 +74,7 @@ const steps: Record<string, Step> = {
                   alt: 'Structure candle directly before NON MSB IB'
                 },
                 {
-                  url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1750328102/Picture2_ij92qg.jpg'',
+                  url: 'https://res.cloudinary.com/dnfpmva9e/image/upload/v1750328102/Picture2_ij92qg.jpg',
                   alt: 'Structure candle immediatly before NON MSB IB'
                 }
               ]
