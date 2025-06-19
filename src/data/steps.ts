@@ -618,7 +618,7 @@ const steps: Record<string, Step> = {
             {
               id: 'rule1',
               description: `H4 same direction candle must close inside the open wick of the daily same direction.
-              unless rule below applies`,
+              Unless rule below applies`,
               allowNA: true,
               images: [
                 {
